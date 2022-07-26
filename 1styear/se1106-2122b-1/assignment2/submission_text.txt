@@ -1,0 +1,1 @@
+I did not take O(n) complexity into consideration while coding this program. It can be optimized but I didn't want to leave the homework's scope.

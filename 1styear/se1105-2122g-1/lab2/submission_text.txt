@@ -1,0 +1,1 @@
+I have compiled my code with gcc and with -lm flag because I am using the math.h library for log10 and pow functions, just saying in case some problems occur while compiling.
