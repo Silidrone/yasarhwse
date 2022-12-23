@@ -78,6 +78,52 @@ void inorder(BST_Node *root) {
     inorder(root->right);
 }
 
+void insert_inorder(int **dst, int size, BST_Node *root) {
+    if(root == nullptr) return;
+    insert_inorder(dst, size, root->left);
+    **dst = root->val;
+    (*dst)++;
+    insert_inorder(dst, size, root->right);
+}
+
+void disp_rml(BST_Node *root) {
+    if(root == nullptr) return;
+    disp_rml(root->right);
+    std::cout << root->val << " ";
+    disp_rml(root->left);
+}
+
+BST_Node* constructBalancedTree(int *dataset, int size) {
+    if(size == 0) return nullptr;
+    if(size == 1) return new BST_Node(dataset[0]);
+    int median_index = (size + 1) / 2 - 1;
+    BST_Node *new_node = new BST_Node(dataset[median_index]);
+    new_node->left = constructBalancedTree(dataset, median_index);
+    new_node->right = constructBalancedTree(dataset + median_index + 1, size - (median_index + 1));
+    return new_node;
+}
+
+int bstSize(BST_Node *root) {
+    if(root == nullptr) return 0;
+    return bstSize(root->left) + 1 + bstSize(root->right);
+}
+
+int *treeSort(int *src, int size) {
+    if(size <= 0) return nullptr;
+    // O(nlogn)
+    BST_Node *root = new BST_Node(*src);
+    for(int *it = src + 1; it != src + size; it++) {
+        root = insert(*it, root);
+    }
+    //BST_Node *root = constructBalancedTree(src, size);
+    
+    int *result = new int[size];
+    int *prev = result;
+    insert_inorder(&result, size, root);
+    
+    return prev;
+}
+
 int main() {
     BST_Node *root = new BST_Node(5);
     root = insert(2, root);
@@ -85,13 +131,32 @@ int main() {
     root = insert(6, root);
     root = insert(9, root);
     root = insert(8, root);
+    std::cout << "bstSize: " << bstSize(root) << std::endl;
     inorder(root);
     std::cout << std::endl;
+    disp_rml(root);
+    std::cout << std::endl;
     root = remove(8, root);
+    std::cout << "bstSize: " << bstSize(root) << std::endl;
     inorder(root);
     std::cout << std::endl;
     root = remove(7, root);
+    std::cout << "bstSize: " << bstSize(root) << std::endl;
     inorder(root);
     std::cout << std::endl;
+    
+    int arr[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    BST_Node *avl_root = constructBalancedTree(arr, 10);
+    std::cout << "AVL bstSize: " << bstSize(avl_root) << std::endl;
+    inorder(avl_root);
+    std::cout << std::endl;
     delete root;
+    
+    int arr1[] = {7, 3, 1, 8, 2, 4, 10, 9};
+    int *sorted_arr1 = treeSort(arr1, 8);
+    std::cout << "sorted_arr1: " << std::endl;
+    for(int i = 0; i < 8; i++) {
+        std::cout << sorted_arr1[i] << " ";
+    }
+    std::cout << std::endl;
 }
