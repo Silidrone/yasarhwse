@@ -117,5 +117,5 @@ int main() {
     std::string message_decoded = decodeText(message, t1);
     std::cout << "Message: " << message << std::endl;
     std::cout << "Encoded: " << message_encoded << std::endl;
-    std::cout << "Decoded: " << message_decoded << std::endl;
+    std::cout << "Decoded: " << message_decoed << std::endl;
 }
