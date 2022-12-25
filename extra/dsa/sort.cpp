@@ -86,7 +86,7 @@ int binary_search(int *arr, int x, int low, int high) {
 void merge(int *arr, int start, int mid, int end) {
     int l_len = mid - start + 1;
     int r_len = end - mid;
-    
+    std::cout << "merge l[" << l_len << "], r[" << r_len << "]" << std::endl;
     int l[l_len], r[r_len];
     
     for(int i = 0; i < l_len; i++)
@@ -116,7 +116,7 @@ void merge(int *arr, int start, int mid, int end) {
 void merge_sort(int *arr, int low, int high) {
     if(low > high) return;
     int med = (low + high) / 2;
-    merge_sort(arr, low, med - 1);
+    merge_sort(arr, low, med);
     merge_sort(arr, med + 1, high);
     merge(arr, low, med, high); 
 } 
