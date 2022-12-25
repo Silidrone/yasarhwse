@@ -96,7 +96,7 @@ std::string decodeText(std::string text, HuffmanNode *root) {
         break;
       }
     }  
-  }
+  } 
   
   return result;
 }
