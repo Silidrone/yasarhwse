@@ -1,3 +1,5 @@
+//There may be memory leaks in the program, I am not concerned with freeing up the memory, only doing algorithmic stuff here
+
 #include <iostream>
 
 void swap(int *a, int *b) {
@@ -114,12 +116,12 @@ void merge(int *arr, int start, int mid, int end) {
 }
 
 void merge_sort(int *arr, int low, int high) {
-    if(low > high) return;
+    if(low >= high) return;
     int med = (low + high) / 2;
     merge_sort(arr, low, med);
     merge_sort(arr, med + 1, high);
     merge(arr, low, med, high); 
-} 
+}
 
 void print(int *input, int size) {
     bool first = true;
@@ -138,7 +140,8 @@ int main() {
     //selection_sort(data, size);
     //bubble_sort(data, size);
     //insertion_sort(data, size);
+    //std::cout << linear_search(data, size, 5) << std::endl;
     //std::cout << binary_search(data, 32211, 0, size - 1) << std::endl;
-    merge_sort(data, 0, size - 1); 
-    print(data, size);
+    //merge_sort(data, 0, size - 1); 
+    //print(data, size);
 }
