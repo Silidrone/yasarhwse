@@ -1,0 +1,17 @@
+Departure
+Adana
+Adıyaman
+Bursa
+Bingöl
+Bayburt
+Diyarbakır
+Nevşehir
+Şanlıurfa
+Uşak
+Destination
+Barcelona
+Luxemburg
+London
+New York
+Paris
+Sydney

@@ -1,0 +1,102 @@
+    Airline Ticket System 
+(Boeing 737 MAX series airplanes crushed due to software problems,further productions are canceled,customer sue for damages, estimated cost = 500.000.000.000$
+(NASA lost spacecraft due to conversion mistakes in metric systems , estimated cost = 125.000.000$)
+(Student did not study for SE1106 , failed in lesson with continuing versions and retake all of them , estimated cost = ~36.000 TL )
+
+
+You will write Flight , Ticket , FlightController and TicketController classes
+A part of the code supplied, so you can understand the relation between classes and test it faster
+
+Flight and Ticket type classes only have basic implementations like toString method, getter&setter with minor changes
+The main flow of the code controlled with 'Controller' classes that has four main job to do, which declared as function in BaseController
+
+validate function will validate info based on restrictions (that will be explain in below for each class) and 
+throw Exception with specific message if conditions are not met
+
+create function will create desired class instance if validation is not throw an error and
+add the instance to its list
+
+show Input prints necessary text to console to create desired instance, collects that info then 
+stores in ArrayList,finally returns it.
+
+showData prints instances in the list.
+
+Destination and Departure Cities will be read from "cities.txt" File.!!!
+
+
+Flight has ;
+    private static int SEAT_NUMBER = 120;
+    private String flight_code;
+    private String departure;
+    private String destination;
+    private boolean canceled;
+    private int[] seats;
+    
+    initially canceled is false and seats index size is SEAT_NUMBER ,other values are supplied in info.
+    constructor takes ONLY ArrayList<String> info
+
+Ticket has;
+    public int CAPACITY = 30;
+    public int EXTRA = 20;
+    public int ECONOMY = 500;
+    public int BUSINESS = 1000;
+    public int FIRST = 1500;
+    private Flight flight;
+    private int price;
+    private int seat_number;
+
+    initially price calculated based on seat number+ luggage money
+    if seat number between 0-20 it will cost 1500, between 20-70 1000 and 70-120 500
+    if luggage is greater than 30, EXTRA will be added for every 3 kg
+    
+    constructor takes Flight flight, ArrayList<Integer> info 
+
+for both Ticket and Flight write toString method and implement necessary getter&setters (do not put every getter&setter, just use necessaries)
+
+FlightController has;
+    private Scanner input;
+    private ArrayList<Flight> all_flights;
+    private ArrayList<String> departure_cities;
+    private ArrayList<String> destination_cities;
+
+    all_flights initally empty
+
+flight code, departure city, destination city will be gathered from CREATE FLIGHT Frame.!!!
+flight number, seat number, and luggage will be gathered from Buy TICKET Frame.!!!
+
+validation rules for existing information;(VALIDATION method for FlightController)
+
+* if flight code is already exist in flights ; throw Exception with message Error : Flight code is exist
+* if departure is not in the departure_cities ;  throw Exception with message Error : " + ..the city name.. + " is not a valid departure city
+* if destination is not in the destination_cities ;  throw Exception with message Error : " + ..the city name.. + " is not a valid destination city
+
+!!the showData prints,flights with their corresponding index values !!! As an example;
+if the first flight in all_flights it ; TRY101,Adana,Paris it will print
+
+TRY101 Adana Paris
+...
+
+TicketController has;
+    private FlightController f_c;
+    private ArrayList<Ticket> all_tickets;
+    private Scanner input;
+
+    all_tickets initially empty;
+
+validation rules for existing information;(VALIDATION method for TicketController)
+* luggage will be defined in validate method of TicketController
+* if luggage is smaller than 1 ; throw Exception with message Error : Luggage cant be smaller than 1 kg
+* if flight is cancelled ; throw Exception with message Error : This flight is canceled you can not buy ticket
+* if the desired seat is already bought ; throw Exception with message Error : This seat is taken please choose new seat
+
+Test your code to see if it works correctly with a GUI
+* Main Frame
+* Create Flight Frame
+* Buy Ticket Frame
+* List Frame both tickets and flights
+
+
+ 
+
+
+
