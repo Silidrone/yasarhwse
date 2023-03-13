@@ -178,6 +178,7 @@ Coordinate assignHero() {
     return c;
 }
 
+//calls the parameter function f, for each possible permutation Coordinate of all of the permutations of monsters coordinate vector
 void permutate(std::vector<Coordinate> v, std::function<void(std::vector<Coordinate>)> f, std::vector<Coordinate> parents = {}) {
     if(v.size() == 0) {
         f(parents);
@@ -198,7 +199,6 @@ ProfitPath getMostProfitablePath (Coordinate hero, std::vector<Coordinate> monst
         Coordinate currentCoordinate = hero;
         ProfitPath currentPath = {0, ""};
         int i = 0;
-        //a do-while loop works here because it is guaranteed that the hero cannot be initially spawn on a square where there is a monster
         while(stamina > 0 && i < NUMBER_OF_MONSTERS) {
             Coordinate monsterCoordinate = targets[i];
             if(coordinatesEqual(currentCoordinate, monsterCoordinate)) {
