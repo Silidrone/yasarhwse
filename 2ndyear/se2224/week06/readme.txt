@@ -1,0 +1,1 @@
+This homework I rushed a little but there is some good code that can be taken. A lot of validation is absent and there may be some NullPointerExceptions, but the time given on the homework was very short and the homework itself is (IMO) very ambigous as to how the system should work.
