@@ -1,0 +1,32 @@
+﻿Lab Assignment – Binary Search Trees
+
+Write a program in C++ to scan one text file (input.txt) and count the number of occurrences of each word in this file. You should also print the number of distinct words. Use a binary search tree to keep track of all words. When input file has been scanned, print out the results to an output file (output.txt).
+
+After reading a word from input file, search for it in the tree and, if it is not found, add it to the tree. If it is found, increment the counter of the node.
+
+Once the file has been read and closed, you must write out the words in the tree in alphabetical order, one word per line, along with the number of occurrences of that word. Your program should ignore the case of the words, so that “This” and “this” are considered the same (HINT: use strcmpi). However, words that are actually spelled differently — such as “car” and “cars” — are considered to be different words.
+
+A sample output might look like the following:
+
+	166	a
+	25	and
+	11	as
+	3	command
+	15	each
+	2	file
+	4	files
+	109	in
+	4	input
+	98	it
+	99	of
+	3	open
+	6	program
+	18	read
+	152	the
+	41	this
+	3	under
+	30	would
+-------------
+	17	Total number of different words
+
+
