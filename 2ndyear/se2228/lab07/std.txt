@@ -1,0 +1,114 @@
+Question 1
+---------------
+By starting at the top of the triangle below and moving to adjacent numbers on the row below,
+the maximum total from top to bottom is 23.
+
+      3
+    7   4
+  2   4   6
+8   5   9   3
+
+That is, 3 + 7 + 4 + 9 = 23.
+
+Find the maximum total from top to bottom of the triangle below, by using greedy approach.
+                                                  75
+                                              95     64
+                                           17     47     82
+                                        18     35     87     10
+                                     20     04     82     47     65
+                                 19     01     23     75     03     34
+                              88     02     77     73     07     63     67
+                          99     65     04     28     06     16     70     92
+                      41     41     26     56     83     40     80     70     33
+                  41     48     72     33     47     32     37     16     94     29
+              53     71     44     65     25     43     91     52     97     51     14
+          70     11     33     28     77     73     17     78     39     68     17     57
+       91     71     52     38     17     14     91     43     58     50     27     29     48
+   63     66     04     68     89     53     67     30     73     16     69     87     40     31
+04     62     98     27     23     09     70     98     73     93     38     53     60     04     23
+
+Question 2
+---------------
+A paper machine can produce an unlimited number of master (jumbo) rolls, each X(Example: 3000) mm wide.
+The length of the items must be cut is given as an array.
+Write a function to find the total wasted product by, using greedy approach.
+** When the roll with excessive waste is discarded, a new one is placed.
+Therefore, you have "unlimited number" of rolls with the same length (wide).
+
+// Example
+int lengths[]={1380, 1930, 1520, 1880, 1560, 1710, 1220}
+int rollWidth = 3000
+The function must return 3800.
+
+
+Function Templates
+---------------------
+// You can declare additional functions
+Question 1
+------------------------------------------------
+#include <vector>
+int question1() {
+    vector<vector<int>> triangle = {
+                {75},
+                {95, 64},
+                {17, 47, 82},
+                {18, 35, 87, 10},
+                {20, 04, 82, 47, 65},
+                {19, 01, 23, 75, 03, 34},
+                {88, 02, 77, 73, 07, 63, 67},
+                {99, 65, 04, 28, 06, 16, 70, 92},
+                {41, 41, 26, 56, 83, 40, 80, 70, 33},
+                {41, 48, 72, 33, 47, 32, 37, 16, 94, 29},
+                {53, 71, 44, 65, 25, 43, 91, 52, 97, 51, 14},
+                {70, 11, 33, 28, 77, 73, 17, 78, 39, 68, 17, 57},
+                {91, 71, 52, 38, 17, 14, 91, 43, 58, 50, 27, 29, 48},
+                {63, 66, 04, 68, 89, 53, 67, 30, 73, 16, 69, 87, 40, 31},
+                {4,  62, 98, 27, 23, 9,  70, 98, 73, 93, 38, 53, 60, 04, 23},
+        };
+}
+------------------------------------------------
+
+Question 2
+------------------------------------------------
+
+/* Return the excessive roll as a waste
+   If limit is smaller than all the lengths, return the limit value.
+*/
+int cutNextPiece(vector<int> &lengths, int limit) {
+
+}
+
+int question2(vector<int> &lengths, int rollWidth) {
+
+}
+
+------------------------------------------------
+
+How to Solve
+---------------------
+For the first question, the greedy approach means that "you must choose the biggest value on the path" with the hope that
+it will maximize your sum. Although it may seem like this type of approach should work every time, if you examine the input
+in below the "greedy approach" will not give the maximum total.
+
+       3
+     2   40
+   2   4   46
+999   5   9   3
+
+You can access the vector's values by using the function in below.Change the parameters accordingly for the desired value.
+"triangle.at(row).at(columnIndex)"
+
+The second question requires you to understand how the "cutting" operation works. For the "cutNextPiece" function,
+your "greedy approach" should look for the "first suitable piece" which is smaller than the limit value. And it should continue
+to the that, till the total piece length reaches to the limit itself.
+As an example, if your lengths are {1500, 3000, 2500, 50, 1000, 500} and the limit value is 4520, your function should cut the
+1500 and 3000 length pieces and return the +20 as waste.
+
+Your function should delete the "cut pieces" from the lengths vector (Check vector.erase() function) to be able to decide
+when the program will stop.
+"vector.erase(vector.begin() + columnIndex)"
+
+Always check your function with different values. For the parameters :
+vector<int> lengths = {1500, 2000, 2500, 3000};
+int rollWidth = 6420, the function "question2(lengths,rollWidth)" must return 3840. Think about it.
+

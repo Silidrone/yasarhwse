@@ -1,0 +1,38 @@
+Question 1
+-----------
+Surprisingly there are only three numbers that can be written as the sum of fourth powers of their digits.
+Find the upper limit for the possible numbers and the sum of these numbers.
+
+
+Question 2
+-----------
+145 is a curious number, as 1! + 4! + 5! = 1 + 24 + 120 = 145.
+Find the sum of all numbers which are equal to the sum of the factorial of their digits.
+Note: As 1! = 1 and 2! = 2 are not sums they are not included.
+
+
+Question 3
+-----------
+The prime 41, can be written as the sum of six consecutive primes:
+41 = 2 + 3 + 5 + 7 + 11 + 13
+This is the longest sum of consecutive primes that adds to a prime below one-hundred.
+The longest sum of consecutive primes below one-thousand that adds to a prime, contains 21 terms, and is equal to 953.
+Which prime, below one-million, can be written as the sum of the most consecutive primes?
+Answer = (Result : 997651)
+
+https://adding.info/sum-prime-numbers/what-is-the-sum-of-the-first-547-prime-numbers.html
+
+// Fast prime check+
+bool isPrime(int number) {
+    bool prime = true;
+    if ((number != 2) && (number % 2 == 0)) {
+        return false;
+    }
+    for (int i = 3; i < sqrt(number) + 1; i = i + 2) {
+        if (number % i == 0) {
+            prime = false;
+            break;
+        }
+    }
+    return prime;
+}
