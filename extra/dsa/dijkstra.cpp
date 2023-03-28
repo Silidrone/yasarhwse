@@ -99,6 +99,7 @@ public:
             auto u = extract_min();
             mark(u);
             remove_from_q(u);
+            std::cout << "visiting: " << u << std::endl;
             for(auto &n : neighbours(u)) {
                 if(is_marked(n)) continue;
                 
@@ -121,17 +122,14 @@ void print_dijkstra(char s, std::map<char, int> distances) {
 
 int main() {
     WeightedDirectedGraph wdg;
+    wdg.addEdge('A', 'D', 6);
     wdg.addEdge('A', 'B', 2);
-    wdg.addEdge('A', 'D', 1);
-    wdg.addEdge('B', 'D', 3);
-    wdg.addEdge('B', 'E', 10);
-    wdg.addEdge('C', 'A', 4);
-    wdg.addEdge('C', 'F', 5);
-    wdg.addEdge('D', 'C', 2);
-    wdg.addEdge('D', 'E', 2);
-    wdg.addEdge('D', 'G', 4);
-    wdg.addEdge('D', 'F', 8);
-    wdg.addEdge('E', 'G', 6);
-    wdg.addEdge('G', 'F', 1);
+    wdg.addEdge('A', 'C', 12);
+    wdg.addEdge('B', 'C', 8);
+    wdg.addEdge('D', 'E', 3);
+    wdg.addEdge('D', 'C', 5);
+    wdg.addEdge('B', 'D', 9);
+    wdg.addEdge('C', 'E', 4);
+    wdg.addEdge('B', 'E', 7);
     print_dijkstra('A', wdg.dijkstra('A'));
 }
