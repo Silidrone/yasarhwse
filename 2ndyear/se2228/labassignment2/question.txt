@@ -1,0 +1,53 @@
+/*
+ * Greedy shopping. There are two markets with five different items on sale.
+ * Each market has a money point that you can spend instead of paying. As a customer,
+ * You will buy each item and try to minimize the money spent on items.
+ * As an example, if the values are :
+ * int market1Prices[] = {5,7,12,3,4};
+ * int market2Prices[] = {8,4,9,9,6};
+ * int market1Point = 8;
+ * int market2Point = 18;
+ * The money spent from the greedy solution should be 4 TL with the market order
+ * Markets = { MARKET1,MARKET2,MARKET2,MARKET1,MARKET1,} and market points
+ * Market1 points = 0 Market2 points = 5
+ * For the same prices, if we had 3 and 22 as market points, respectively. The result would be
+ *
+ * Additional Money spent = 4 TL
+ * Market1 points = 0 Market2 points = 1
+ * Markets = { MARKET2,MARKET2,MARKET2,MARKET1,MARKET1,}
+ *
+ * Try to understand how the greedy approach works by analyzing the output.
+ * Keep in mind that, when you buy a product, you can not partially pay it with points.
+ * It is either money or points
+ *
+ * For grading, I'm going to check the existence of functions described in below. The function signatures
+ * and their names may be different, and the output may be "slightly different" than the presented on above.
+ * However, the main goal is minimizing the money spent...
+ */
+ #include <iostream>
+
+ using namespace std;
+
+ #define MARKET1 true
+ #define MARKET2 false
+ #define ITEM_COUNT 5
+ int market1Prices[] = {5, 7, 12, 3, 4};
+ int market2Prices[] = {8, 4, 9, 9, 6};
+ bool markets[ITEM_COUNT];
+ //Change the values in below to calculate different result
+ int market1Point = 3;
+ int market2Point = 22;
+
+ // Return the money spent and assign each market to the "markets" variable
+ int buyItems() {
+
+ }
+
+ // Print the market information
+ void printMarkets(){
+
+ }
+ // You can print other information in the main function
+ int main(){
+
+ }
