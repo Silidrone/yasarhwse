@@ -1,0 +1,70 @@
+For a number written in Roman numerals to be considered valid there are basic rules which must be followed.
+Even though the rules allow some numbers to be expressed in more than one way there is always a "best" way of writing
+a particular number.
+For example, it would appear that there are at least six ways of writing the number sixteen:
+IIIIIIIIIIIIIIII
+VIIIIIIIIIII
+VVIIIIII
+XIIIIII
+VVVI
+XVI
+However, according to the rules only XIIIIII and XVI are valid, and the last example is considered to be the most efficient,
+as it uses the least number of numerals.
+For a given list such as string numbers[] = {"MMMCCXXXVII","MCXXI","MMMMD","MMMMCCCLXXXXVI","MMDCCCXCVI"}
+Find the number of characters saved by writing each of these in their minimal form by using dynamic programming approach.
+Note: You can assume that all the Roman numerals in the file contain no more than four consecutive identical units.
+The highest letter is the 'M' equals to 1000.
+
+Starting Code
+---------------------
+#include <unordered_map>
+
+using namespace std;
+#define LIST_SIZE 10
+#define MAXIMUM_VALUE 5000
+string minimalForm[MAXIMUM_VALUE];
+
+/* Declaring romanLetters to be of <char, int> type
+ * key will be of character type and mapped value will be of int type
+ * You can insert/assign values by using the "[]" operator
+ * romanLetters['I'] = 1; will assign the string "I" to 1.
+*/
+unordered_map<char, int> romanLetters;
+---------------------
+
+Function Templates
+---------------------
+// You can declare additional functions
+// Assign roman "letters" to corresponding values.
+/*
+ * I = 1
+ * V = 5
+ * X = 10
+ * L = 50
+ * C = 100
+ * D = 500
+ * M = 1000
+ */
+void fillMap() {
+}
+
+// Return the numerical value of the given roman number. Example : MMMMDLXXXXVIII -> 4598
+int getNumericValue(string number) {
+}
+
+// Return the minimal roman numeral form of the given input. Example : 4598 -> "MMMMDXCVIII"
+string getMinimalForm(int value) {
+}
+
+// Calculate how many characters you can save from a single number
+// Example : For the given input "MMMMDLXXXXVIII" the minimal form is "MMMMDXCVIII" which is 3 characters shorter.
+int savedCharacterByNumber(string number) {
+}
+
+// Process each number in the numbers list and return the number of total saved characters.
+int totalSavedCharacters(string numbers[LIST_SIZE]) {
+}
+
+
+
+

@@ -1,0 +1,72 @@
+Question 1
+---------------
+A number chain is created by continuously adding the square of the digits in a number to form a new number until it has been seen before.
+For example,
+44 → 32 → 13 → 10 → 1 → 1
+85 → 89 → 145 → 42 → 20 → 4 → 16 → 37 → 58 → 89
+
+Therefore, any chain that arrives at 1 or 89 will become stuck in an endless loop.
+What is most amazing is that EVERY starting number will eventually arrive at 1 or 89.
+How many starting numbers below ten million will arrive at 89? Solve it by using dynamic programming approach.
+
+Answer = (Result : 8581146)
+
+Question 2
+---------------
+The following iterative sequence is defined for the set of positive integers:
+n → n/2 (n is even)
+n → 3n + 1 (n is odd)
+Using the rule above and starting with 13, we generate the following sequence:
+13 → 40 → 20 → 10 → 5 → 16 → 8 → 4 → 2 → 1
+It can be seen that this sequence (starting ast 13 and finishing at 1) contains 10 terms.
+Although it has not been proved yet (Collatz Problem), it is thought that all starting numbers finish at 1.
+Which starting number, under one million, produces the longest chain? Solve it by using dynamic programming approach.
+NOTE: Once the chain starts the terms are allowed to go above one million.
+
+Answer = (Result : 837799)
+
+
+Function Templates
+---------------------
+// You can declare additional functions
+
+Question 1
+------------------------------------------------
+#define Q1SIZE int(1E+7)
+int numbers[Q1SIZE];
+int nextNumberQ1(int number) {
+
+}
+/* Check that if the given number reaches 89 or 1
+ * If number is not occurred before, iterate though sequence till to reach 89 or 1
+*/
+boolean doesItReach89(int number) {
+
+}
+
+int question1() {
+    int counter = 0;
+    // Code in here...
+    return counter;
+}
+
+Question 2
+------------------------------------------------
+#define Q2SIZE int(1E+6)
+int collatzNumbers[Q2SIZE];
+int nextNumberQ2(int number) {
+
+}
+
+int sequenceLength(long long number) {
+
+}
+
+int question2() {
+    // Clear sequence list
+    for (int i = 0; i < Q2SIZE; i++) {
+        collatzNumbers[i]=0;
+    }
+    // Code in here...
+}
+
