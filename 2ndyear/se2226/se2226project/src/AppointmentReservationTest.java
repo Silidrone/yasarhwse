@@ -28,8 +28,8 @@ public class AppointmentReservationTest extends AutomatedTest {
         }
     }
 
-    void selectLastTab(String tabsDivID) {
-        driver.findElement(By.xpath("//div[@id='" + tabsDivID + "']//ul//li[last()]//a")).click();
+    void selectTestWorkstationTab(String tabDivID) {
+        driver.findElement(By.xpath(String.format("//div[@id='%s']", tabDivID) + String.format("//a[contains(text(), '%s')]/parent::li", testWorkstationName))).click();
         try {
             Thread.sleep(500);
         } catch (InterruptedException e) {
@@ -68,7 +68,7 @@ public class AppointmentReservationTest extends AutomatedTest {
         driver.findElement(By.xpath("//div[contains(@class, 'clickable-card')][1]")).click();
         driver.findElement(By.id("i_understand_button")).click();
         //pick last workstation
-        driver.findElement(By.xpath("//div[contains(@class, 'clickable-card')][last()]")).click();
+        driver.findElement(By.xpath(String.format("//div[contains(text(), '%s')]/ancestor::div[contains(@class, 'clickable-card')]", testWorkstationName))).click();
 
         waitForSpinnerToDisappear();
         try {
@@ -101,7 +101,7 @@ public class AppointmentReservationTest extends AutomatedTest {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        selectLastTab("workingHours");
+        selectTestWorkstationTab("workingHours");
         driver.findElement(By.xpath(getSelectedPillXPath("workingHours") + "//div[@class='workingHours'][1]")).click();
         driver.findElement(By.id("addWorkingTimeSubmitButton")).click();
         try {
@@ -115,7 +115,7 @@ public class AppointmentReservationTest extends AutomatedTest {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        selectLastTab("services");
+        selectTestWorkstationTab("services");
         driver.findElement(By.xpath(getSelectedPillXPath("services") + "//a[contains(@class, 'btn')]")).click();
         driver.findElement(By.xpath("//input[@class='form-check-input'][1]")).click();
         driver.findElement(By.id("saveButton")).click();
@@ -156,14 +156,14 @@ public class AppointmentReservationTest extends AutomatedTest {
     void deleteTestWorkstation() {
         driver.get("http://76.72.163.151:8060/company/show");
         goToWorkstationsList();
-        String lastTDXpath = "//div[@id='stations']//table//tbody//tr[last()]//td[last()]";
+        String lastTDXpath = String.format("//td[contains(text(), '%s')]/parent::tr//td[last()]", testWorkstationName);
         driver.findElement(By.xpath(lastTDXpath + "//a")).click();
         try {
             Thread.sleep(500);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        driver.findElement(By.xpath("//div[@class='dropdown-menu show']//a[last()]")).click();
+        driver.findElement(By.xpath(lastTDXpath + "//div[@class='dropdown-menu show']//a[last()]")).click();
         assertTrue(true);
     }
 }
