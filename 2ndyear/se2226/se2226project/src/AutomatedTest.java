@@ -1,6 +1,5 @@
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
@@ -12,7 +11,7 @@ public class AutomatedTest {
     protected static final String username = "melisozveri@gmail.com";
     protected static final String password = "melisozveri123";
 
-    protected static SeleniumUtil seleniumUtil;
+    protected static SeleniumApsUtil seleniumApsUtil;
 
     @BeforeAll
     public static void setUp() {
@@ -20,7 +19,7 @@ public class AutomatedTest {
         options.addArguments("--whitelisted-ips=''");
         options.addArguments("--remote-allow-origins=*");
         driver = new ChromeDriver(options);
-        seleniumUtil = new SeleniumUtil(driver);
+        seleniumApsUtil = new SeleniumApsUtil(driver);
         driver.get("http://76.72.163.151:8060/login");
         driver.manage().window().setSize(new Dimension(1920, 1080));
         try {
