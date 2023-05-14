@@ -21,9 +21,9 @@ public class AppointmentReservationTest extends AutomatedTest {
     @BeforeAll
     static void addTestWorkstation() {
         seleniumApsUtil.addWorkstation(testWorkstationName);
-        seleniumApsUtil.addMondayShift(testWorkstationName);
+        seleniumApsUtil.goToTab("workingHours", testWorkstationName);
+        seleniumApsUtil.addMondayShiftToCurrentWorkstation();
         seleniumApsUtil.assignWorkstationToFirstService(testWorkstationName);
-        assertTrue(true);
     }
 
     @ParameterizedTest
@@ -37,6 +37,5 @@ public class AppointmentReservationTest extends AutomatedTest {
     static void deleteTestWorkstation() {
         driver.get("http://76.72.163.151:8060/company/show");
         seleniumApsUtil.deleteWorkstation(testWorkstationName);
-        assertTrue(true);
     }
 }

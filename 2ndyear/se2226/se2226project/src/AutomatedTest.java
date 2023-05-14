@@ -22,19 +22,9 @@ public class AutomatedTest {
         seleniumApsUtil = new SeleniumApsUtil(driver);
         driver.get("http://76.72.163.151:8060/login");
         driver.manage().window().setSize(new Dimension(1920, 1080));
-        try {
-            Thread.sleep(100);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-        var emailTextBoxElement = driver.findElement(By.id("email"));
-        var passwordTextBoxElement = driver.findElement(By.id("password"));
-        var loginButtonElement = driver.findElement(By.id("loginButton"));
-        emailTextBoxElement.click();
-        emailTextBoxElement.sendKeys(username);
-        passwordTextBoxElement.click();
-        passwordTextBoxElement.sendKeys(password);
-        loginButtonElement.click();
+        seleniumApsUtil.clearAndEnterText("email", username);
+        seleniumApsUtil.clearAndEnterText("password", password);
+        driver.findElement(By.id("loginButton")).click();
     }
 
     @AfterAll
