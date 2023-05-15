@@ -6,8 +6,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import java.util.function.Function;
 
-import static org.junit.jupiter.api.Assertions.fail;
-
 public class SeleniumApsUtil {
     final int SPINNER_WAIT_TIME_S = 10;
     final int JS_TAB_LOAD_TIME_MS = 500;
