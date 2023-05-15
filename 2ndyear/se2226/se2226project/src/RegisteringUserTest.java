@@ -30,7 +30,7 @@ public class RegisteringUserTest extends AutomatedTest {
 
     @ParameterizedTest
     @MethodSource("userInfoStream")
-    void testAddingShift(String name, String email, String password, String passwordConfirmation, boolean expected) {
+    void testRegisteringUser(String name, String email, String password, String passwordConfirmation, boolean expected) {
         driver.findElement(By.id("addButton")).click();
         seleniumApsUtil.clearAndEnterText("name", name);
         seleniumApsUtil.clearAndEnterText("email", email);

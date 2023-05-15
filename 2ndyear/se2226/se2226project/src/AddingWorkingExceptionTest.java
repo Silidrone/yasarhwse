@@ -46,7 +46,7 @@ public class AddingWorkingExceptionTest extends AutomatedTest {
 
     @ParameterizedTest
     @MethodSource("inputVariablesPairs")
-    void testAddingShift(LocalDateTime ldt, boolean alreadyChosen, boolean expected) {
+    void testAddingWorkingException(LocalDateTime ldt, boolean alreadyChosen, boolean expected) {
         boolean result = seleniumApsUtil.addWorkingExceptionToCurrentWorkstation(dtf.format(ldt));
         boolean secondResult = true;
         if(alreadyChosen) {
@@ -55,11 +55,9 @@ public class AddingWorkingExceptionTest extends AutomatedTest {
                 seleniumApsUtil.deleteFirstWorkingExceptionOfCurrentWorkstation();
             }
         }
-
         if(result) {
             seleniumApsUtil.deleteFirstWorkingExceptionOfCurrentWorkstation();
         }
-
         assertEquals(result && secondResult, expected);
     }
 
