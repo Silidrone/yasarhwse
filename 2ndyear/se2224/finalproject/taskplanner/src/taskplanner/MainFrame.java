@@ -38,7 +38,8 @@ public class MainFrame extends SubFrame {
             Task task = tasksTable.getSelectedTask();
             if(task.isReminderImageOn()) {
                 try {
-                    BufferedImage myPicture = ImageIO.read(new File("images/task"));
+                    System.out.println("images/task" + task.getId() + ".jpg");
+                    BufferedImage myPicture = ImageIO.read(new File("images/task" + task.getId() + ".jpg"));
                     JLabel picLabel = new JLabel(new ImageIcon(myPicture));
                     JOptionPane.showMessageDialog(null, picLabel, null, JOptionPane.PLAIN_MESSAGE, null);
                 } catch (IOException ex) {

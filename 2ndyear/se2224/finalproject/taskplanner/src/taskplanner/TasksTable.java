@@ -4,13 +4,10 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
-import javax.swing.table.TableModel;
-import javax.swing.table.TableRowSorter;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 interface PostRefreshFunction {
     void call(TasksTable t);
@@ -19,10 +16,6 @@ interface PostRefreshFunction {
 interface TasksTableOnRowClickCallback {
     void call(TasksTable t);
 }
-
-interface TaskFilter {
-    boolean holds(Task t);
-};
 
 public class TasksTable extends JComponent {
     protected JTable jTable;
@@ -33,11 +26,12 @@ public class TasksTable extends JComponent {
 
     TasksTable() {
         postRefreshF = null;
-        String[] columns = {"Task Name", "Short Desc.", "Deadline", "Priority", "Reminder Image"};
+        String[] columns = {"ID", "Task Name", "Short Desc.", "Deadline", "Priority", "Reminder Image"};
         tableModel = new DefaultTableModel(new Object[][]{}, columns);
         jTable = new JTable(tableModel);
         TableColumnModel tableColumnModel = jTable.getColumnModel();
         tableColumnModel.removeColumn(tableColumnModel.getColumn(4));
+        tableColumnModel.removeColumn(tableColumnModel.getColumn(0));
 
         jTable.getSelectionModel().addListSelectionListener((ListSelectionEvent event) -> {
             if (event.getValueIsAdjusting() || jTable.getSelectedRow() == -1) return;
@@ -48,7 +42,7 @@ public class TasksTable extends JComponent {
     }
 
     protected void addTask(Task task) {
-        var taskDataList = Arrays.asList(task.getName(), task.getShortDescription(), task.getDeadline(), task.getPriority(), task.isReminderImageOn());
+        var taskDataList = Arrays.asList(task.getId(), task.getName(), task.getShortDescription(), task.getDeadline(), task.getPriority(), task.isReminderImageOn());
         tableModel.addRow(taskDataList.toArray());
     }
 
@@ -57,11 +51,12 @@ public class TasksTable extends JComponent {
         if (selectedRowIndex == -1) return null;
         try {
             return new Task(
-                    tableModel.getValueAt(selectedRowIndex, 0).toString(),
+                    Integer.parseInt(tableModel.getValueAt(selectedRowIndex, 0).toString()),
                     tableModel.getValueAt(selectedRowIndex, 1).toString(),
-                    LocalDate.parse(tableModel.getValueAt(selectedRowIndex, 2).toString()),
-                    Integer.parseInt(tableModel.getValueAt(selectedRowIndex, 3).toString()),
-                    Boolean.parseBoolean(tableModel.getValueAt(selectedRowIndex, 4).toString())
+                    tableModel.getValueAt(selectedRowIndex, 2).toString(),
+                    LocalDate.parse(tableModel.getValueAt(selectedRowIndex, 3).toString()),
+                    Integer.parseInt(tableModel.getValueAt(selectedRowIndex, 4).toString()),
+                    Boolean.parseBoolean(tableModel.getValueAt(selectedRowIndex, 5).toString())
             );
         } catch (NumberFormatException | DateTimeParseException e) {
             return null;
