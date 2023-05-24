@@ -24,21 +24,27 @@ public class TasksTable extends JComponent {
     protected TasksTableOnRowClickCallback tasksTableOnRowClickCallback;
     protected PostRefreshFunction postRefreshF;
 
-    TasksTable() {
+    TasksTable(ArrayList<Task> tasks) {
         postRefreshF = null;
         String[] columns = {"ID", "Task Name", "Short Desc.", "Deadline", "Priority", "Reminder Image"};
         tableModel = new DefaultTableModel(new Object[][]{}, columns);
         jTable = new JTable(tableModel);
+        jTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        jTable.setDefaultEditor(Object.class, null);
         TableColumnModel tableColumnModel = jTable.getColumnModel();
-        tableColumnModel.removeColumn(tableColumnModel.getColumn(4));
+        tableColumnModel.removeColumn(tableColumnModel.getColumn(5));
         tableColumnModel.removeColumn(tableColumnModel.getColumn(0));
 
         jTable.getSelectionModel().addListSelectionListener((ListSelectionEvent event) -> {
             if (event.getValueIsAdjusting() || jTable.getSelectedRow() == -1) return;
-            tasksTableOnRowClickCallback.call(this);
+            if(tasksTableOnRowClickCallback != null) tasksTableOnRowClickCallback.call(this);
         });
 
-        refreshWithAllData();
+        refreshWithData(tasks);
+    }
+
+    TasksTable() {
+        this(Repo.getInstance().getTasks());
     }
 
     protected void addTask(Task task) {

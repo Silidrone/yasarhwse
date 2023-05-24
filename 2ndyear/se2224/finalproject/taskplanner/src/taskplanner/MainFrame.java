@@ -1,16 +1,36 @@
 package taskplanner;
 
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
 public class MainFrame extends SubFrame {
     MainFrame(JFrame parent) {
         super("TaskPlanner", 1500, 600, parent);
+    }
+
+    void showUpcomingTasksAlert(ArrayList<Task> upcomingTasks) {
+        JDialog upcomingTasksDialog = new JDialog(this, "Upcoming Tasks");
+        upcomingTasksDialog.setBounds(0, 0, 600, 500);
+        Container pane = upcomingTasksDialog.getContentPane();
+        pane.setLayout(null);
+        TasksTable dialogTasksTable = new TasksTable(upcomingTasks);
+        var scrollPane = new JScrollPane(dialogTasksTable.getJTable());
+        scrollPane.setBounds(10, 0, 580, 400);
+        upcomingTasksDialog.add(scrollPane);
+        JButton okayButton = new JButton("Okay");
+        okayButton.addActionListener((ActionEvent e) -> {
+            upcomingTasksDialog.dispose();
+        });
+        pane.add(okayButton);
+        okayButton.setBounds(225, 420, 150, 30);
+        upcomingTasksDialog.setVisible(true);
     }
 
     public void main() {
@@ -103,5 +123,10 @@ public class MainFrame extends SubFrame {
                 showDialog("Error", "Please enter both start and end dates before trying to filter tasks!", w / 2,h / 2);
             }
         });
+
+        ArrayList<Task> upcomingTasks = Repo.getInstance().getUpcomingTasks();
+        if(upcomingTasks != null && !upcomingTasks.isEmpty()) {
+            showUpcomingTasksAlert(upcomingTasks);
+        }
     }
 }

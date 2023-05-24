@@ -157,4 +157,18 @@ public class Repo {
             return null;
         }
     }
+
+    //Retrieves tasks that have 1 day left to their deadlines
+    public ArrayList<Task> getUpcomingTasks() {
+        LocalDate tomorrow = LocalDate.now().plusDays(1);
+        try (Connection connection = DriverManager.getConnection(url, db_username, db_password)) {
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM tasks WHERE deadline <= ?;");
+            preparedStatement.setDate(1, java.sql.Date.valueOf(tomorrow));
+            preparedStatement.execute();
+            return getTasksFromResultSet(preparedStatement.getResultSet());
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }
