@@ -26,7 +26,7 @@ public class LoginFrame extends MFrame {
 //            }
 //        });
 //
-//        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         MainFrame mainFrame = new MainFrame(this);
         mainFrame.init();
     }
