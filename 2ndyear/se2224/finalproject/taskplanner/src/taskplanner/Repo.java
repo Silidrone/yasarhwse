@@ -60,7 +60,7 @@ public class Repo {
     //After adding the task to the DB it sets its ID
     public boolean addTask(Task task) {
         try (Connection connection = DriverManager.getConnection(url, db_username, db_password)) {
-            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO tasks (name, short_description, deadline, priority, reminder_image, entry_date) values (?, ?, ?, ?, ?, ?);");
+            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO tasks (name, short_description, deadline, priority, reminder_image) values (?, ?, ?, ?, ?);");
             preparedStatement.setString(1, task.getName());
             preparedStatement.setString(2, task.getShortDescription());
             preparedStatement.setDate(3, java.sql.Date.valueOf(task.getDeadline()));
@@ -71,7 +71,6 @@ public class Repo {
                 preparedStatement.setNull(4, Types.INTEGER);
             }
             preparedStatement.setBoolean(5, task.isReminderImageOn());
-            preparedStatement.setDate(6, java.sql.Date.valueOf(LocalDate.now()));
             preparedStatement.execute();
 
             //Set the task's id
@@ -91,9 +90,10 @@ public class Repo {
         return true;
     }
 
+    //By default, tasks will be ordered by their deadline.
     public ArrayList<Task> getTasks() {
         try (Connection connection = DriverManager.getConnection(url, db_username, db_password)) {
-            return getTasksFromResultSet(connection.createStatement().executeQuery("SELECT * FROM tasks;"));
+            return getTasksFromResultSet(connection.createStatement().executeQuery("SELECT * FROM tasks ORDER BY deadline;"));
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
@@ -148,7 +148,7 @@ public class Repo {
 
     public ArrayList<Task> getTasksByDeadlineAndSortedPriority(LocalDate deadline) {
         try (Connection connection = DriverManager.getConnection(url, db_username, db_password)) {
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM tasks WHERE deadline = ? ORDER BY priority;");
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM tasks WHERE deadline = ? ORDER BY priority DESC;");
             preparedStatement.setDate(1, java.sql.Date.valueOf(deadline));
             preparedStatement.execute();
             return getTasksFromResultSet(preparedStatement.getResultSet());

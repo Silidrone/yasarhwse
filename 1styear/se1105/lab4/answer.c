@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include "lab-07.h"
+#include "answer.h"
 
 int roll_the_dice(){
     int num;
