@@ -1,7 +1,6 @@
 package taskplanner;
 
 import java.time.LocalDate;
-
 public class Task {
     private Integer id;
     private String name;

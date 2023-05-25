@@ -55,8 +55,8 @@ public abstract class CRUDTaskFrame extends SubFrame {
             } else if (deadline == null) {
                 errorLabel.setText("The deadline field is required!");
                 errorLabel.setVisible(true);
-            } else if (!deadline.isAfter(LocalDate.now())) {
-                errorLabel.setText("The deadline field has to be future!");
+            } else if (deadline.isBefore(LocalDate.now())) {
+                errorLabel.setText("The deadline field mustn't be past!");
                 errorLabel.setVisible(true);
             } else {
                 if(postValidationF(new Task(taskName, shortDescription, deadline, priority, reminderImageOn))) {

@@ -20,14 +20,14 @@ CREATE TABLE tasks
 );
 
 INSERT INTO tasks (name, short_description, deadline, priority, reminder_image)
-VALUES ('SE2224 Final Project', 'Finish your SE2224 final project.', '2023-06-03', 10, TRUE),
+VALUES ('SE2224 Final Project', 'Finish your SE2224 final project.', '2023-06-03', 10, FALSE),
        ('New sports shoes', 'Take your new sports shoes from the local cargo.', '2023-06-03', 3, TRUE),
        ('New jacket', 'Take your new jacket from the local cargo.', '2023-06-03', 3, TRUE),
-       ('New slippers', 'Take your new slippers from the local cargo.', '2023-06-04', 2, FALSE),
+       ('New slippers', 'Take your new slippers from the local cargo.', '2023-06-04', 2, TRUE),
        ('New guitar', 'Take your new guitar from the local cargo.', '2023-06-10', 7, TRUE),
-       ('SE2222 Exam', 'Study for your SE2222 exam.', '2023-06-15', 8, TRUE),
+       ('SE2222 Exam', 'Study for your SE2222 exam.', '2023-06-15', 8, FALSE),
        ('SE2228 Exam', 'Study for your SE2228 exam.', '2023-06-17', 10, FALSE),
-       ('Russian Exam', 'Study for your Russian exam.', '2023-06-21', 6, FALSE),
+       ('Russian Exam', 'Study for your Russian exam.', '2023-06-21', 6, TRUE),
        ('SE2226 Exam', 'Study for your SE2226 exam.', '2023-06-27', 10, FALSE),
        ('Residence Permit', 'Renew your Residence Permit.', '2025-06-01', 10, FALSE);
 

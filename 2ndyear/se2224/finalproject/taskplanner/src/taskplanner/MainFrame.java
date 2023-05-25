@@ -17,19 +17,24 @@ public class MainFrame extends SubFrame {
 
     void showUpcomingTasksAlert(ArrayList<Task> upcomingTasks) {
         JDialog upcomingTasksDialog = new JDialog(this, "Upcoming Tasks");
-        upcomingTasksDialog.setBounds(0, 0, 600, 500);
-        Container pane = upcomingTasksDialog.getContentPane();
-        pane.setLayout(null);
+        upcomingTasksDialog.setLocationRelativeTo(this);
+        int dialogW = 600;
+        int dialogH = 500;
+        upcomingTasksDialog.setBounds(upcomingTasksDialog.getX() - dialogW / 2, upcomingTasksDialog.getY() - dialogH / 2, dialogW, dialogH);
         TasksTable dialogTasksTable = new TasksTable(upcomingTasks);
         var scrollPane = new JScrollPane(dialogTasksTable.getJTable());
-        scrollPane.setBounds(10, 0, 580, 400);
+        scrollPane.setSize(dialogW, dialogH - 100);
         upcomingTasksDialog.add(scrollPane);
+
+        Container pane = upcomingTasksDialog.getContentPane();
+        pane.setLayout(null);
         JButton okayButton = new JButton("Okay");
         okayButton.addActionListener((ActionEvent e) -> {
             upcomingTasksDialog.dispose();
         });
         pane.add(okayButton);
         okayButton.setBounds(225, 420, 150, 30);
+
         upcomingTasksDialog.setVisible(true);
     }
 
@@ -48,7 +53,7 @@ public class MainFrame extends SubFrame {
 
         var editTaskButton = addButton("Edit Task", 640, 500, 150, 60, (ActionEvent e) -> {
             Task taskToEdit = tasksTable.getSelectedTask();
-            if(taskToEdit != null) {
+            if (taskToEdit != null) {
                 UpdateTaskFrame updateTaskFrame = new UpdateTaskFrame(this, tasksTable, taskToEdit);
                 updateTaskFrame.init();
             }
@@ -56,23 +61,22 @@ public class MainFrame extends SubFrame {
 
         var viewTaskImageButton = addButton("View Task Image", 810, 500, 170, 60, (ActionEvent e) -> {
             Task task = tasksTable.getSelectedTask();
-            if(task.isReminderImageOn()) {
+            if (task.isReminderImageOn()) {
                 try {
-                    System.out.println("images/task" + task.getId() + ".jpg");
                     BufferedImage myPicture = ImageIO.read(new File("images/task" + task.getId() + ".jpg"));
                     JLabel picLabel = new JLabel(new ImageIcon(myPicture));
-                    JOptionPane.showMessageDialog(null, picLabel, null, JOptionPane.PLAIN_MESSAGE, null);
+                    JOptionPane.showMessageDialog(this, picLabel, null, JOptionPane.PLAIN_MESSAGE, null);
                 } catch (IOException ex) {
-                    showDialog("Info", "This task's image does not exist on the system!", w / 2,h / 2);
+                    JOptionPane.showMessageDialog(this, "This task's image does not exist on the system!", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             } else {
-                showDialog("Info", "This task does not include an image!", w / 2,h / 2);
+                JOptionPane.showMessageDialog(this, "This task does not include an image!", "Info", JOptionPane.INFORMATION_MESSAGE);
             }
         });
 
-        var deleteTaskButton = addButton("Delete Task", 1000, 500, 150, 60,(ActionEvent e) -> {
+        var deleteTaskButton = addButton("Delete Task", 1000, 500, 150, 60, (ActionEvent e) -> {
             Task taskToDelete = tasksTable.getSelectedTask();
-            if(taskToDelete != null) {
+            if (taskToDelete != null) {
                 Repo.getInstance().deleteTask(taskToDelete.getName(), taskToDelete.getDeadline().toString());
                 tasksTable.refreshWithAllData();
             }
@@ -98,10 +102,10 @@ public class MainFrame extends SubFrame {
         var datePickerPair = addDatePickerWithLabel("Deadline", 100, 360);
         addButton("Sort by Priority", 180, 405, 150, 30, (ActionEvent e) -> {
             LocalDate deadline = datePickerPair.getValue().getDate();
-            if(deadline != null) {
+            if (deadline != null) {
                 tasksTable.refreshWithSortedByPriorityData(deadline);
             } else {
-                showDialog("Error", "Please enter the deadline before trying to sort by priority!", w / 2,h / 2);
+                JOptionPane.showMessageDialog(this, "Please enter the deadline before trying to sort by priority!", "Invalid Input", JOptionPane.ERROR_MESSAGE);
             }
         });
 
@@ -113,19 +117,19 @@ public class MainFrame extends SubFrame {
             LocalDate start = startDatePicker.getDate();
             LocalDate end = endDatePicker.getDate();
 
-            if(start != null && end != null) {
-                if(start.isBefore(end) || start.isEqual(end)) {
+            if (start != null && end != null) {
+                if (start.isBefore(end) || start.isEqual(end)) {
                     tasksTable.refreshWithDateRangeFilteredData(start, end);
                 } else {
-                    showDialog("Error", "Please make sure the start date is before or equal to the end date before trying to filter tasks!", w / 2,h / 2);
+                    JOptionPane.showMessageDialog(this, "Please make sure the start date is before or equal to the end date before trying to filter tasks!", "Invalid Input", JOptionPane.ERROR_MESSAGE);
                 }
             } else {
-                showDialog("Error", "Please enter both start and end dates before trying to filter tasks!", w / 2,h / 2);
+                JOptionPane.showMessageDialog(this, "Please enter both the start and the end date before trying to filter tasks!", "Invalid Input", JOptionPane.ERROR_MESSAGE);
             }
         });
 
         ArrayList<Task> upcomingTasks = Repo.getInstance().getUpcomingTasks();
-        if(upcomingTasks != null && !upcomingTasks.isEmpty()) {
+        if (upcomingTasks != null && !upcomingTasks.isEmpty()) {
             showUpcomingTasksAlert(upcomingTasks);
         }
     }

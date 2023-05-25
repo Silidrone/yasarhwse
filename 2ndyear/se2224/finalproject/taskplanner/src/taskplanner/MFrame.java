@@ -7,15 +7,13 @@ import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.JTextComponent;
 import javax.swing.text.PlainDocument;
-import java.awt.image.BufferedImage;
 import java.util.AbstractMap;
 import java.util.Map;
 
 public abstract class MFrame extends JFrame {
     String label;
-    int w;
-    int h;
-    
+    int w, h;
+
     static final int DEFAULT_TEXTFIELD_W = 150;
     static final int DEFAULT_TEXTFIELD_H = 20;
     static final int DEFAULT_LABEL_H = 20;
@@ -40,8 +38,9 @@ public abstract class MFrame extends JFrame {
     
     public void init() {
         setTitle(label);
-        setSize(w, h);
-        
+        setLocationRelativeTo(null);
+        setBounds(getX() - w / 2, getY() - h / 2, w, h); //center the frame
+
         main();
         
         setLayout(null);
@@ -80,10 +79,10 @@ public abstract class MFrame extends JFrame {
     }
 
     JTextField addTextField(int x, int y, int w, int h) {
-        JTextField jinput = new JTextField();
-        jinput.setBounds(x, y, w, h);
-        add(jinput);
-        return jinput;
+        JTextField jInput = new JTextField();
+        jInput.setBounds(x, y, w, h);
+        add(jInput);
+        return jInput;
     }
 
     JTextField addTextField(int x, int y) {
@@ -138,15 +137,6 @@ public abstract class MFrame extends JFrame {
         return tasksTable;
     }
 
-    JDialog showDialog(String title, String text, int x, int y) {
-        final JOptionPane pane = new JOptionPane(text);
-        final JDialog dialog = pane.createDialog(null, title);
-        dialog.setLocation(x - pane.getWidth() / 2, y - pane.getHeight() / 2);
-        dialog.setVisible(true);
-
-        return dialog;
-    }
-
     Map.Entry<JLabel, JTextField> addTextFieldWithLabel(String label, int x, int y) {
         return new AbstractMap.SimpleEntry<>(addLabel(label, x, y), addTextField(x, y + DEFAULT_LABEL_GAP_Y));
     }
@@ -158,11 +148,5 @@ public abstract class MFrame extends JFrame {
     Map.Entry<JLabel, DatePickerComponent> addDatePickerWithLabel(String label, int x, int y) {
         JLabel jLabel = addLabel(label, x, y + DEFAULT_LABEL_GAP_Y);
         return new AbstractMap.SimpleEntry<>(jLabel, addDatePicker(x + jLabel.getWidth(), y));
-    }
-
-    void addComponents(JComponent ... components) {
-        for(JComponent jc : components) {
-            add(jc);
-        }
     }
 }
