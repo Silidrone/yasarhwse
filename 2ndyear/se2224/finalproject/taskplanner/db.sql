@@ -33,4 +33,4 @@ VALUES ('SE2224 Final Project', 'Finish your SE2224 final project.', '2023-06-03
 
 
 INSERT INTO users (username, password)
-VALUES ('muhamed', 'cicak12345');
+VALUES ('muhamed', '$2a$10$J9Bbadhmm3/T.fLA18L1gemUti2kZhWu6Es6s1APaRDr1UXB4TxQm');
