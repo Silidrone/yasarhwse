@@ -1,5 +1,7 @@
 package taskplanner;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -25,16 +27,12 @@ public class Repo {
             ps.execute();
 
             ResultSet resultSet = ps.getResultSet();
-            while (resultSet.next()) {
-                if (resultSet.getString("password").equals(password)) {
-                    return true;
-                }
-            }
+            resultSet.next();
+            return BCrypt.checkpw(password, resultSet.getString("password"));
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
         }
-
-        return false;
     }
 
     public ArrayList<Task> getTasksFromResultSet(ResultSet resultSet) throws SQLException {
@@ -58,7 +56,7 @@ public class Repo {
     }
 
     //After adding the task to the DB it sets its ID
-    public boolean addTask(Task task) {
+    public boolean addTask(Task task) throws SQLIntegrityConstraintViolationException {
         try (Connection connection = DriverManager.getConnection(url, db_username, db_password)) {
             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO tasks (name, short_description, deadline, priority, reminder_image) values (?, ?, ?, ?, ?);");
             preparedStatement.setString(1, task.getName());
@@ -82,6 +80,8 @@ public class Repo {
             ResultSet resultSet = ps.getResultSet();
             resultSet.next();
             task.setId(Integer.parseInt(resultSet.getString("id")));
+        } catch (SQLIntegrityConstraintViolationException e) {
+            throw new SQLIntegrityConstraintViolationException();
         } catch (SQLException | NumberFormatException e) {
             e.printStackTrace();
             return false;
@@ -127,7 +127,7 @@ public class Repo {
         return true;
     }
 
-    public boolean editTask(String taskName, String deadline, Task newTask) {
+    public boolean editTask(String taskName, String deadline, Task newTask) throws SQLIntegrityConstraintViolationException {
         try (Connection connection = DriverManager.getConnection(url, db_username, db_password)) {
             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE tasks SET name=?, short_description=?, deadline=?, priority=?, reminder_image=? WHERE name=? AND deadline=?;");
             preparedStatement.setString(1, newTask.getName());
@@ -138,6 +138,8 @@ public class Repo {
             preparedStatement.setString(6, taskName);
             preparedStatement.setString(7, deadline);
             preparedStatement.execute();
+        } catch (SQLIntegrityConstraintViolationException e) {
+            throw new SQLIntegrityConstraintViolationException();
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
@@ -158,14 +160,12 @@ public class Repo {
         }
     }
 
-    //Retrieves tasks that have 1 day left to their deadlines
+    //Retrieves tasks that are due either today or tomorrow
     public ArrayList<Task> getUpcomingTasks() {
-        LocalDate tomorrow = LocalDate.now().plusDays(1);
         try (Connection connection = DriverManager.getConnection(url, db_username, db_password)) {
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM tasks WHERE deadline <= ?;");
-            preparedStatement.setDate(1, java.sql.Date.valueOf(tomorrow));
-            preparedStatement.execute();
-            return getTasksFromResultSet(preparedStatement.getResultSet());
+            return getTasksFromResultSet(
+                    connection.createStatement().executeQuery("SELECT * FROM tasks WHERE DATEDIFF(deadline, CURDATE()) = 1 OR DATEDIFF(deadline, CURDATE()) = 0;")
+            );
         } catch (SQLException e) {
             e.printStackTrace();
             return null;

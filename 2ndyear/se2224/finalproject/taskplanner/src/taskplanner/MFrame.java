@@ -89,6 +89,13 @@ public abstract class MFrame extends JFrame {
         return addTextField(x, y, DEFAULT_TEXTFIELD_W, DEFAULT_TEXTFIELD_H);
     }
 
+    JPasswordField addPasswordField(int x, int y) {
+        JPasswordField jPasswordField = new JPasswordField();
+        jPasswordField.setBounds(x, y, DEFAULT_TEXTFIELD_W, DEFAULT_TEXTFIELD_H);
+        add(jPasswordField);
+        return jPasswordField;
+    }
+
     JTextArea addTextArea(int x, int y, int w, int h) {
         JTextArea jTextArea = new JTextArea();
         jTextArea.setBounds(x, y, w, h);
@@ -139,6 +146,10 @@ public abstract class MFrame extends JFrame {
 
     Map.Entry<JLabel, JTextField> addTextFieldWithLabel(String label, int x, int y) {
         return new AbstractMap.SimpleEntry<>(addLabel(label, x, y), addTextField(x, y + DEFAULT_LABEL_GAP_Y));
+    }
+
+    Map.Entry<JLabel, JPasswordField> addPasswordFieldWithLabel(String label, int x, int y) {
+        return new AbstractMap.SimpleEntry<>(addLabel(label, x, y), addPasswordField(x, y + DEFAULT_LABEL_GAP_Y));
     }
 
     Map.Entry<JLabel, JTextArea> addTextAreaWithLabel(String label, int x, int y, int w, int h) {

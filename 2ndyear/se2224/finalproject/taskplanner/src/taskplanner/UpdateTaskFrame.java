@@ -11,17 +11,6 @@ public class UpdateTaskFrame extends CRUDTaskFrame {
     }
 
     @Override
-    protected boolean postValidationF(Task task) {
-        boolean successful = Repo.getInstance().editTask(taskToEdit.getName(), taskToEdit.getDeadline().toString(), task);
-        if (!successful) {
-            errorLabel.setText("There was an error editing the task!");
-            errorLabel.setVisible(true);
-        }
-
-        return successful;
-    }
-
-    @Override
     public void main() {
         super.main();
         //Fill the input with the task to be edited
