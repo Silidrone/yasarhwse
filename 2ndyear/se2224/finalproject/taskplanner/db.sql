@@ -29,7 +29,7 @@ VALUES ('SE2224 Final Project', 'Finish your SE2224 final project.', '2023-06-03
        ('SE2228 Exam', 'Study for your SE2228 exam.', '2023-06-17', 10, FALSE),
        ('Russian Exam', 'Study for your Russian exam.', '2023-06-21', 6, TRUE),
        ('SE2226 Exam', 'Study for your SE2226 exam.', '2023-06-27', 10, FALSE),
-       ('Residence Permit', 'Renew your Residence Permit.', '2025-06-01', 10, FALSE);
+       ('Residence Permit', 'Renew your Residence Permit.', '2025-06-01', NULL, FALSE);
 
 
 INSERT INTO users (username, password)

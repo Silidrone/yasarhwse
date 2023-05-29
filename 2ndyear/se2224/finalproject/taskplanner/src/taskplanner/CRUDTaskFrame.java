@@ -23,6 +23,7 @@ public abstract class CRUDTaskFrame extends SubFrame {
     public void main() {
         super.main();
         namePair = addTextFieldWithLabel("Task Name", 80, 20);
+        setTextVerifier(namePair.getValue(), new MaxCharVerifier(30));
         shortDescPair = addTextAreaWithLabel("Short Description", 80, 70, 250, 45);
         setTextVerifier(shortDescPair.getValue(), new MaxCharVerifier(90));
         shortDescPair.getValue().setLineWrap(true);
