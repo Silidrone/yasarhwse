@@ -28,7 +28,7 @@ public abstract class CRUDTaskFrame extends SubFrame {
         shortDescPair.getValue().setLineWrap(true);
         deadlineDatePair = addDatePickerWithLabel("Deadline", 80, 150);
         addLabel("Priority", 80, 190);
-        priorityTextField = addTextField(172, 190, 30, DEFAULT_TEXTFIELD_H);
+        priorityTextField = addTextField(152, 190, 30, DEFAULT_TEXTFIELD_H);
         setTextVerifier(priorityTextField, new PriorityInputVerifier());
         reminderImageCheckBox = addCheckBox("Reminder Image", 80, 220);
         errorLabel = addLabel("", 80, 245, 400, DEFAULT_LABEL_H, Color.RED);
