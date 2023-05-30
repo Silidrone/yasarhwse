@@ -54,10 +54,10 @@ public abstract class CRUDTaskFrame extends SubFrame {
                 errorLabel.setText("Short Description field is required!");
                 errorLabel.setVisible(true);
             } else if (deadline == null) {
-                errorLabel.setText("The deadline field is required!");
+                errorLabel.setText("Deadline field is required!");
                 errorLabel.setVisible(true);
             } else if (deadline.isBefore(LocalDate.now())) {
-                errorLabel.setText("The deadline field mustn't be past!");
+                errorLabel.setText("Deadline field mustn't be in past!");
                 errorLabel.setVisible(true);
             } else {
                 try {
