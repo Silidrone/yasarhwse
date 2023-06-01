@@ -11,8 +11,8 @@ import java.util.AbstractMap;
 import java.util.Map;
 
 public abstract class MFrame extends JFrame {
-    String label;
-    int w, h;
+    protected String label;
+    protected int w, h;
 
     static final int DEFAULT_TEXTFIELD_W = 150;
     static final int DEFAULT_TEXTFIELD_H = 20;

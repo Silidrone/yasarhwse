@@ -3,7 +3,7 @@ package taskplanner;
 import javax.swing.*;
 
 public class UpdateTaskFrame extends CRUDTaskFrame {
-    protected Task taskToEdit;
+    private Task taskToEdit;
 
     UpdateTaskFrame(JFrame parent, TasksTable tasksTable, Task taskToEdit) {
         super("Insert A Task", parent, tasksTable);

@@ -23,6 +23,7 @@ public class TasksTable extends JComponent {
 
     protected TasksTableOnRowClickCallback tasksTableOnRowClickCallback;
     protected PostRefreshFunction postRefreshF;
+    private Repo repo = new Repo();
 
     TasksTable(ArrayList<Task> tasks) {
         postRefreshF = null;
@@ -44,7 +45,7 @@ public class TasksTable extends JComponent {
     }
 
     TasksTable() {
-        this(Repo.getInstance().getTasks());
+        this((new Repo()).getTasks());
     }
 
     protected void addTask(Task task) {
@@ -82,7 +83,7 @@ public class TasksTable extends JComponent {
 
     //Fetch data from DB (used to fetch initial data and also used in the context of fetching data after any of add/update/delete operations or when clicking on "Show All Tasks" button).
     public void refreshWithAllData() {
-        refreshWithData(Repo.getInstance().getTasks());
+        refreshWithData(repo.getTasks());
         if(postRefreshF != null) postRefreshF.call(this);
 
     }
@@ -92,11 +93,11 @@ public class TasksTable extends JComponent {
     }
 
     public void refreshWithSortedByPriorityData(LocalDate deadline) {
-        refreshWithData(Repo.getInstance().getTasksByDeadlineAndSortedPriority(deadline));
+        refreshWithData(repo.getTasksByDeadlineAndSortedPriority(deadline));
     }
 
     public void refreshWithDateRangeFilteredData(LocalDate start, LocalDate end) {
-        refreshWithData(Repo.getInstance().getTasksByDateRange(start, end));
+        refreshWithData(repo.getTasksByDateRange(start, end));
     }
 
     public JTable getJTable() {

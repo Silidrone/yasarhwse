@@ -15,6 +15,7 @@ public abstract class CRUDTaskFrame extends SubFrame {
     protected Map.Entry<JLabel, DatePickerComponent> deadlineDatePair;
     protected JTextField priorityTextField;
     protected JCheckBox reminderImageCheckBox;
+    protected Repo repo = new Repo();
 
     CRUDTaskFrame(String frameLabel, JFrame parent, TasksTable tasksTable) {
         super(frameLabel, 400, 400, parent);
@@ -61,7 +62,7 @@ public abstract class CRUDTaskFrame extends SubFrame {
                 errorLabel.setVisible(true);
             } else {
                 try {
-                    boolean successful = Repo.getInstance().addTask(new Task(taskName, shortDescription, deadline, priority, reminderImageOn));
+                    boolean successful = repo.addTask(new Task(taskName, shortDescription, deadline, priority, reminderImageOn));
                     if (!successful) {
                         errorLabel.setText("An error occurred!");
                         errorLabel.setVisible(true);

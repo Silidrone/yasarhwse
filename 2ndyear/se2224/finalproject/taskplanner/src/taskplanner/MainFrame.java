@@ -11,6 +11,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 public class MainFrame extends SubFrame {
+    private Repo repo = new Repo();
     MainFrame(JFrame parent) {
         super("TaskPlanner", 1500, 600, parent);
     }
@@ -77,7 +78,7 @@ public class MainFrame extends SubFrame {
         var deleteTaskButton = addButton("Delete Task", 1000, 500, 150, 60, (ActionEvent e) -> {
             Task taskToDelete = tasksTable.getSelectedTask();
             if (taskToDelete != null) {
-                Repo.getInstance().deleteTask(taskToDelete.getName(), taskToDelete.getDeadline().toString());
+                repo.deleteTask(taskToDelete.getName(), taskToDelete.getDeadline().toString());
                 tasksTable.refreshWithAllData();
             }
         });
@@ -128,7 +129,7 @@ public class MainFrame extends SubFrame {
             }
         });
 
-        ArrayList<Task> upcomingTasks = Repo.getInstance().getUpcomingTasks();
+        ArrayList<Task> upcomingTasks = repo.getUpcomingTasks();
         if (upcomingTasks != null && !upcomingTasks.isEmpty()) {
             showUpcomingTasksAlert(upcomingTasks);
         }

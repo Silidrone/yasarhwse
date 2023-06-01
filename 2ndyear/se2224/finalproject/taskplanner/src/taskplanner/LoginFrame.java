@@ -3,9 +3,9 @@ package taskplanner;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.util.Arrays;
 
 public class LoginFrame extends MFrame {
+    private Repo repo = new Repo();
     LoginFrame() {
         super("Login",300, 230);
     }
@@ -18,7 +18,7 @@ public class LoginFrame extends MFrame {
         errorLabel.setVisible(false);
 
         addButton("Login", 100, 150, 100, 30, (ActionEvent e) -> {
-            if(Repo.getInstance().checkLogin(usernamePair.getValue().getText(), String.valueOf(passwordPair.getValue().getPassword()))) {
+            if(repo.checkLogin(usernamePair.getValue().getText(), String.valueOf(passwordPair.getValue().getPassword()))) {
                 errorLabel.setVisible(false);
                 MainFrame mainFrame = new MainFrame(this);
                 mainFrame.init();

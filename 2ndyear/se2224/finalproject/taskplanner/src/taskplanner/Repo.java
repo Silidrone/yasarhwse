@@ -7,19 +7,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Repo {
-    private static Repo instance = null;
     private static String url = "jdbc:mysql://localhost:3306/taskplanner";
     private static String db_username = "root";
     private static String db_password = "mynewpassword";
-
-    private Repo() {
-
-    }
-
-    public static Repo getInstance() {
-        return (instance == null) ? new Repo() : instance;
-    }
-
     public boolean checkLogin(String username, String password) {
         try (Connection connection = DriverManager.getConnection(url, db_username, db_password)) {
             PreparedStatement ps = connection.prepareStatement("SELECT password FROM users WHERE username=?;");
