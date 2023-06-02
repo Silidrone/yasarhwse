@@ -23,7 +23,7 @@ public class TasksTable extends JComponent {
 
     protected TasksTableOnRowClickCallback tasksTableOnRowClickCallback;
     protected PostRefreshFunction postRefreshF;
-    private Repo repo = new Repo();
+    protected Repo repo = new Repo();
 
     TasksTable(ArrayList<Task> tasks) {
         postRefreshF = null;
