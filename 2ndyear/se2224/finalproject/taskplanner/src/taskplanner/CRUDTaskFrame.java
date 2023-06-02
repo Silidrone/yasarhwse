@@ -15,12 +15,15 @@ public abstract class CRUDTaskFrame extends SubFrame {
     protected Map.Entry<JLabel, DatePickerComponent> deadlineDatePair;
     protected JTextField priorityTextField;
     protected JCheckBox reminderImageCheckBox;
-    protected Repo repo = new Repo();
+    protected JButton addButton;
 
     CRUDTaskFrame(String frameLabel, JFrame parent, TasksTable tasksTable) {
         super(frameLabel, 400, 400, parent);
         this.tasksTable = tasksTable;
     }
+
+    public abstract boolean submit(Task task) throws SQLIntegrityConstraintViolationException;
+
     public void main() {
         super.main();
         namePair = addTextFieldWithLabel("Task Name", 80, 20);
@@ -36,7 +39,7 @@ public abstract class CRUDTaskFrame extends SubFrame {
         errorLabel = addLabel("", 80, 245, 400, DEFAULT_LABEL_H, Color.RED);
         errorLabel.setVisible(false);
 
-        addButton("Add task", 80, 270, 130, 50, (ActionEvent e) -> {
+        addButton = addButton("Add task", 80, 270, 130, 50, (ActionEvent e) -> {
             String taskName = namePair.getValue().getText();
             String shortDescription = shortDescPair.getValue().getText();
             LocalDate deadline = deadlineDatePair.getValue().getDate();
@@ -62,7 +65,7 @@ public abstract class CRUDTaskFrame extends SubFrame {
                 errorLabel.setVisible(true);
             } else {
                 try {
-                    boolean successful = repo.addTask(new Task(taskName, shortDescription, deadline, priority, reminderImageOn));
+                    boolean successful = submit(new Task(taskName, shortDescription, deadline, priority, reminderImageOn));
                     if (!successful) {
                         errorLabel.setText("An error occurred!");
                         errorLabel.setVisible(true);
