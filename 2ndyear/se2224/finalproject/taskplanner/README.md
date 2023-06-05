@@ -4,3 +4,10 @@ username: muhamed
 password: cicak12345
 
 It is saved as a BCrypt hash (10 log_rounds) in the DB so I had to state it here.
+
+The database is MYSQL,
+
+host: localhost
+username: root
+password: mynewpassword
+database: taskplanner
