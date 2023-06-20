@@ -1,0 +1,108 @@
+Greedy TicTacToe
+-------------------
+Tic-tac-toe,or Xs and Os is a game for two players who take turns marking the spaces in a three-by-three grid with X or O.
+The player who succeeds in placing three of their marks in a horizontal, vertical, or diagonal row is the winner.
+(Rephrased from Wikipedia)
+
+Play the game
+https://playtictactoe.org/
+
+TicTacToe is a turn-based game, and you play the first.
+Fill the necessary functions to place your markers in a greedy approach.
+The strategies in this concept are defined below.
+
+- Your first marker must be placed in any available corner.
+- After the computer plays its first move, place a second marker in an adjacent corner.
+After the computer makes its second move, apply the first suitable action from top to bottom :
+- If the computer wins in the next move, prevent it.
+- Place the marker in a position that lets you win the game.
+- Make a random move (Put a marker in a suitable position).
+
+
+Function Templates
+---------------------
+// You can declare additional functions
+
+Starting Code
+---------------------
+#include <iostream>
+#include <stdlib.h>
+#include <time.h>
+
+#define DIMENSION 3
+#define PLAYER1_MARKER 'X'
+#define COMPUTER_MARKER 'O'
+#define EMPTY_SPACE ' '
+using namespace std;
+
+char board[DIMENSION][DIMENSION];
+
+// Don't change/edit this function
+void computerMove() {
+    srand(time(NULL));
+    int row, columnIndex;
+    do {
+        row = rand() % DIMENSION;
+        columnIndex = rand() % DIMENSION;
+    } while (!isAvailable(row, columnIndex));
+    placeMarker(row, columnIndex, false);
+}
+---------------------
+
+// Fill the game board with empty space
+void clearBoard() {
+}
+// Print the board in the given format in std.txt file
+void printBoard() {
+}
+// Check that if the given coordinate is in the bound of board and suitable to place a marker
+bool isAvailable(int row, int columnIndex) {
+}
+// Place Marker. Place the corresponding marker to the board
+void placeMarker(int row, int columnIndex, bool firstPlayerTurn) {
+}
+// Place your marker to any available corner.
+void playerFirstMove() {
+}
+// Place a second marker in an adjacent corner
+void playerSecondMove() {
+}
+// Checks that if the game over in any state
+bool gameOver() {
+}
+// Fill the function to apply correct strategy
+void playerMove() {
+}
+
+Example Output
+---------------------
+// Empty board
+[ ][ ][ ]
+[ ][ ][ ]
+[ ][ ][ ]
+
+
+// Player first move
+[X][ ][ ]
+[ ][ ][ ]
+[ ][ ][ ]
+
+// Random computer move
+[X][ ][ ]
+[O][ ][ ]
+[ ][ ][ ]
+
+// Player second move to an adjacent corner
+[X][ ][ ]
+[O][ ][ ]
+[X][ ][ ]
+
+// Another random computer move
+[X][ ][ ]
+[O][ ][ ]
+[X][ ][O]
+
+// Random move by player as neither computer nor player winning in the next move
+[X][ ][X]
+[O][ ][ ]
+[X][ ][O]
