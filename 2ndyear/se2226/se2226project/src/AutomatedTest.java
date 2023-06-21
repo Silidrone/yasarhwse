@@ -8,8 +8,10 @@ import org.openqa.selenium.chrome.ChromeOptions;
 
 public class AutomatedTest {
     protected static WebDriver driver;
-    protected static final String username = "melisozveri@gmail.com";
-    protected static final String password = "melisozveri123";
+    protected static final String username = "seleniumtestuser@mailinator.com";
+    protected static final String password = "test98125!";
+
+    protected static final String baseURL = "zamaninda.com";
 
     protected static SeleniumApsUtil seleniumApsUtil;
 
@@ -20,8 +22,9 @@ public class AutomatedTest {
         options.addArguments("--remote-allow-origins=*");
         driver = new ChromeDriver(options);
         seleniumApsUtil = new SeleniumApsUtil(driver);
-        driver.get("http://76.72.163.151:8060/login");
-        driver.manage().window().setSize(new Dimension(1920, 1080));
+        driver.get(String.format("https://%s/login", baseURL));
+        //important, otherwise elements might not be in the viewport, and you might get "element click intercepted" errors
+        driver.manage().window().maximize();
         seleniumApsUtil.clearAndEnterText("email", username);
         seleniumApsUtil.clearAndEnterText("password", password);
         driver.findElement(By.id("loginButton")).click();

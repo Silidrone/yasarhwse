@@ -25,7 +25,7 @@ public class RegisteringUserTest extends AutomatedTest {
 
     @BeforeAll
     static void goToUsersPage() {
-        driver.get("http://76.72.163.151:8060/users/show");
+        driver.get(String.format("https://%s/users/show", baseURL));
     }
 
     @ParameterizedTest
@@ -39,14 +39,14 @@ public class RegisteringUserTest extends AutomatedTest {
         Select roleSelect = new Select(driver.findElement(By.id("role_id")));
         roleSelect.selectByIndex(roleSelect.getOptions().size() - 1);
         driver.findElement(By.id("addButton")).click();
-        boolean noError = !seleniumApsUtil.alertDangerErrorPresent();
+        boolean noError = !seleniumApsUtil.alertDangerErrorPresent() && !seleniumApsUtil.elementExists(By.id("add_user_breadcrumb_li"));
         if (noError) {
-            seleniumApsUtil.waitForJSTabLoad();
+            seleniumApsUtil.waitForJSLoad();
             seleniumApsUtil.deleteUser(email);
         } else {
             seleniumApsUtil.clickOnBreadcrumb();
-            seleniumApsUtil.waitForJSTabLoad();
+            seleniumApsUtil.waitForJSLoad();
         }
-        assertEquals(noError, expected);
+        assertEquals(expected, noError);
     }
 }

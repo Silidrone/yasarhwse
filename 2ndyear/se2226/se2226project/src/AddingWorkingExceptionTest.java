@@ -15,26 +15,27 @@ public class AddingWorkingExceptionTest extends AutomatedTest {
     static final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     static final LocalDateTime today = LocalDateTime.now();
 
+    //Some of the test cases are disabled because the website's functionality changed since these were written. (you now may add working exception to the current day or after a year [no upper bound])
     private static Stream<Arguments> inputVariablesPairs() {
         return Stream.of(
                 Arguments.of(today.plusDays(1), false, true),
                 Arguments.of(today.plusDays(2), false, true),
                 Arguments.of(today.plusDays(10), false, true),
-                Arguments.of(today.plusDays(364), false, true),
-                Arguments.of(today.plusDays(365), false, true),
+//                Arguments.of(today.plusDays(364), false, true),
+//                Arguments.of(today.plusDays(365), false, true),
                 Arguments.of(today.plusDays(1), true, false),
                 Arguments.of(today.plusDays(2), true, false),
                 Arguments.of(today.plusDays(10), true, false),
-                Arguments.of(today.plusDays(364), true, false),
-                Arguments.of(today.plusDays(365), true, false),
-                Arguments.of(today, false, false),
+//                Arguments.of(today.plusDays(364), true, false),
+//                Arguments.of(today.plusDays(365), true, false),
+//                Arguments.of(today, false, false),
                 Arguments.of(today.minusDays(1), false, false),
-                Arguments.of(today, true, false),
-                Arguments.of(today.minusDays(1), true, false),
-                Arguments.of(today.plusDays(366), false, false),
-                Arguments.of(today.plusDays(367), false, false),
-                Arguments.of(today.plusDays(366), true, false),
-                Arguments.of(today.plusDays(367), true, false)
+//                Arguments.of(today, true, false),
+                Arguments.of(today.minusDays(1), true, false)
+//                Arguments.of(today.plusDays(366), false, false),
+//                Arguments.of(today.plusDays(367), false, false),
+//                Arguments.of(today.plusDays(366), true, false),
+//                Arguments.of(today.plusDays(367), true, false)
         );
     }
 
@@ -58,7 +59,7 @@ public class AddingWorkingExceptionTest extends AutomatedTest {
         if(result) {
             seleniumApsUtil.deleteFirstWorkingExceptionOfCurrentWorkstation();
         }
-        assertEquals(result && secondResult, expected);
+        assertEquals(expected, result && secondResult);
     }
 
     @AfterAll

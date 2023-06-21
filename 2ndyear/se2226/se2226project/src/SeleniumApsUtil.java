@@ -1,6 +1,7 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
@@ -8,7 +9,7 @@ import java.util.function.Function;
 
 public class SeleniumApsUtil {
     final int SPINNER_WAIT_TIME_S = 10;
-    final int JS_TAB_LOAD_TIME_MS = 500;
+    final int JS_LOAD_TIME_MS = 500;
     protected WebDriver driver;
 
     SeleniumApsUtil(WebDriver driver) {
@@ -19,9 +20,9 @@ public class SeleniumApsUtil {
         return "//div[@class='tab-pane fade active show']//div[@id='pills-tabContent']//div[@class='tab-pane fade active show']";
     }
 
-    void waitForJSTabLoad() {
+    void waitForJSLoad() {
         try {
-            Thread.sleep(JS_TAB_LOAD_TIME_MS);
+            Thread.sleep(JS_LOAD_TIME_MS);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -68,7 +69,7 @@ public class SeleniumApsUtil {
     public void goToWorkstationsList() {
         goToFirstLocationDetails();
         driver.findElement(By.id("stations-tab")).click();
-        waitForJSTabLoad();
+        waitForJSLoad();
     }
 
     public void clearAndEnterText(String textBoxID, String content) {
@@ -79,7 +80,7 @@ public class SeleniumApsUtil {
 
     public void goToTab(String tabDivID, String workstationName) {
         driver.findElement(By.id(tabDivID + "-tab")).click();
-        waitForJSTabLoad();
+        waitForJSLoad();
         selectWorkstationTab(tabDivID, workstationName);
     }
 
@@ -103,7 +104,7 @@ public class SeleniumApsUtil {
         if (failed) {
             clickOnBreadcrumb();
         }
-        waitForJSTabLoad();
+        waitForJSLoad();
         return !failed;
     }
 
@@ -114,7 +115,7 @@ public class SeleniumApsUtil {
     public void deleteFirstMondayShiftOfCurrentWorkstation() {
         driver.findElement(By.xpath(getSelectedChildPillXPath() + "//div[@class='workingHours'][1]")).click();
         driver.findElement(By.id("workingtime_delete_button")).click();
-        waitForJSTabLoad();
+        waitForJSLoad();
     }
 
     public void deleteFirstWorkingExceptionOfCurrentWorkstation() {
@@ -130,13 +131,13 @@ public class SeleniumApsUtil {
         if (failed) {
             clickOnBreadcrumb();
         }
-        waitForJSTabLoad();
+        waitForJSLoad();
         return !failed;
     }
 
     void selectWorkstationTab(String tabDivID, String workstationName) {
         driver.findElement(By.xpath(String.format("//div[@id='%s']", tabDivID) + String.format("//a[contains(text(), '%s')]/parent::li", workstationName))).click();
-        waitForJSTabLoad();
+        waitForJSLoad();
     }
 
     public void addWorkstation(String name) {
@@ -144,12 +145,12 @@ public class SeleniumApsUtil {
         driver.findElement(By.id("addWorkstationButton")).click();
         clearAndEnterText("name", name);
         driver.findElement(By.id("addWorkstationSubmitButton")).click();
-        waitForJSTabLoad();
+        waitForJSLoad();
     }
 
     public void assignWorkstationToFirstService(String workstationName) {
         driver.findElement(By.id("services-tab")).click();
-        waitForJSTabLoad();
+        waitForJSLoad();
         selectWorkstationTab("services", workstationName);
         driver.findElement(By.xpath(getSelectedChildPillXPath() + "//a[contains(@class, 'btn')]")).click();
         driver.findElement(By.xpath("//input[@class='form-check-input'][1]")).click();
@@ -159,7 +160,7 @@ public class SeleniumApsUtil {
     void deleteViaThreeDots(String lastTDXpath) {
         driver.findElement(By.xpath(lastTDXpath + "//a")).click();
         driver.findElement(By.xpath(lastTDXpath + "//div[@class='dropdown-menu show']//a[last()]")).click();
-        waitForJSTabLoad();
+        waitForJSLoad();
     }
 
     void deleteViaThreeDotsByText(String text) {
@@ -191,7 +192,7 @@ public class SeleniumApsUtil {
             throw e;
         }
         driver.findElement(By.xpath(String.format("//button[contains(text(), '%s')]", time))).click();
-        waitUntilExistent("reserveButton", 20);
+        waitUntilExistent("reserveButton", 10);
         driver.findElement(By.id("reserveButton")).click();
         driver.findElement(By.id("person_1_name")).sendKeys(name);
         driver.findElement(By.id("person_1_surname")).sendKeys(surname);
@@ -207,7 +208,7 @@ public class SeleniumApsUtil {
 
     public void deleteUser(String email) {
         deleteViaThreeDotsByText(email);
-        waitForJSTabLoad();
+        waitForJSLoad();
         driver.findElement(By.xpath("//button[@class='swal2-confirm swal2-styled']")).click();
     }
 }
