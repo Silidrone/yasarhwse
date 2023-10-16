@@ -1,0 +1,17 @@
+Find 3x3 sudoku boxes such that,digits within a cage must sum to the given total.
+Orthogonally adjacent digits can never be consecutive, be in a 1:2 ratio, sum to 5 or sum to 10.
+Total is equal to 11 for the values in the middle and adjacent position.
+
+[4][9][3]
+[7][2][5]
+[1][6][8]
+
+
+Refer to the https://www.youtube.com/watch?v=kDPTNACpJuA for further information.
+Keep in mind that, you are not solving the "entire puzzle".
+You will just try to find the possible 3x3 combinations that satisfy the given conditions.
+
+Optional
+--------
+Challenge 1 : Try to write a permutation algorithm with a linear time complexity.
+Challenge 2 : Try to construct a valid 9x9 board by merging the valid 3x3 boxes.
