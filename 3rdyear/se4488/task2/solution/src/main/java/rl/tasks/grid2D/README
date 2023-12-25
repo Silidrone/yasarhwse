@@ -1,0 +1,23 @@
+
+STOCHASTIC GRID-MODEL
+
+                    _________________________________
+                    |       |       |       |  end  |
+                    |       |       |       |   +5  |
+                    |_______|_______|_______|_______|
+                    |       | XXXXX |       |  end  |
+                    |       | XXXXX |       |  -10  |
+                    |_______|_______|_______|_______|
+                    |       |       |       |       |
+                    | start |       |       |       |
+                    |_______|_______|_______|_______|
+
+Stochastic Grid-Model consists of cells which can be either start, end or obstacle(X).
+The above figure displays an instance of the Grid with 3 rows and 4 columns. The agent
+starts the episode at the start cell and terminates at one of the end cells. At each step,
+the agent can choose one of the 4 actions corresponding to 4 directions (Up, Down, Left Right)
+For example, if the agent chooses an Up action it moves to the cell upwards with probability 0.8
+if the cell upwards is not obstacle and inside the grid. The agent moves to left and right cells
+with probability 0.1 each if those cells are available. (not obstacle and inside).
+The reward is 0 for transitions to the all cells except the end-cells. The reward of the transition
+to the end cell is specified by the grid  as displayed above.
