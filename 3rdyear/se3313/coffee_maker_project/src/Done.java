@@ -15,8 +15,7 @@ public class Done extends CoffeeState{
 
     @Override
     String reset() {
-        coffeeController.setCoffeeState(new Done(coffeeController));
-        coffeeController.reset();
+        coffeeController.setCoffeeState(new Empty(coffeeController));
         return "The machine has been reset!";
     }
 }

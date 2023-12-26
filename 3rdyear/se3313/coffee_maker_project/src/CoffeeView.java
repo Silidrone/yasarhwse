@@ -2,7 +2,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.*;
 import java.awt.Color;
 
-public class CoffeeView extends MFrame implements ViewObserver{
+public class CoffeeView extends MFrame implements ViewObserver {
     protected CoffeeController coffeeController;
     protected JButton idleIndicator;
     protected JButton brewingIndicator;
@@ -11,18 +11,19 @@ public class CoffeeView extends MFrame implements ViewObserver{
     protected JTextField cupsToFillTextbox;
 
     protected JLabel messageLabel;
+
     CoffeeView(CoffeeController coffeeController) {
-        super("Coffee Maker", 900, 400);
+        super("Coffee Maker", 550, 400);
         this.coffeeController = coffeeController;
     }
 
     @Override
     protected void main() {
         addButton("FILLED", 40, 200, 130, 50, (ActionEvent e) -> {
-            coffeeController.setCurrentCoffees(Integer.parseInt(cupsToFillTextbox.getText()));
-            coffeeController.filled();
+            coffeeController.filled(cupsToFillTextbox.getText());
         });
         addButton("START", 190, 200, 130, 50, (ActionEvent e) -> coffeeController.start());
+        addButton("RESET", 190, 260, 130, 50, (ActionEvent e) -> coffeeController.reset());
         addButton("TOTAL CUPS", 340, 200, 130, 50, (ActionEvent e) -> coffeeController.updateTotalCups());
 
         var cupsToFillPair = addTextFieldWithLabel("Cups To Fill", 40, 150);
@@ -30,12 +31,16 @@ public class CoffeeView extends MFrame implements ViewObserver{
         cupsToFillTextbox.setBounds(cupsToFillTextbox.getX(), cupsToFillTextbox.getY(), cupsToFillTextbox.getWidth() - 20, cupsToFillTextbox.getHeight());
         setTextVerifier(cupsToFillTextbox, new NumberVerifier(2));
         totalCupsLabel = addLabel("Total Cups:", 340, 170);
+        totalCupsLabel.setBounds(340, 170, 210, 40);
+        idleIndicator = addButton("IDLE", 190, 20, 130, 50, (ActionEvent e) -> {
+        });
+        brewingIndicator = addButton("BREWING", 190, 70, 130, 50, (ActionEvent e) -> {
+        });
+        doneIndicator = addButton("DONE", 190, 120, 130, 50, (ActionEvent e) -> {
+        });
 
-        idleIndicator = addButton("IDLE", 190,  20, 130, 50, (ActionEvent e) -> {});
-        brewingIndicator = addButton("BREWING", 190,  70, 130, 50, (ActionEvent e) -> {});
-        doneIndicator = addButton("DONE", 190,  120, 130, 50, (ActionEvent e) -> {});
-
-        messageLabel = addLabel("", 250, 250);
+        messageLabel = addLabel("BOO", 40, 300);
+        messageLabel.setBounds(40, 300, 410, 50);
         messageLabel.setForeground(Color.ORANGE);
 
         idleIndicator.setEnabled(false);
@@ -49,6 +54,7 @@ public class CoffeeView extends MFrame implements ViewObserver{
         doneIndicator.setForeground(Color.WHITE);
 
         turnOnIdle();
+        coffeeController.updateTotalCups();
     }
 
     void turnOnIdle() {

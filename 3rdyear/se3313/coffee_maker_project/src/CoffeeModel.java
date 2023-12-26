@@ -5,6 +5,7 @@ public class CoffeeModel {
     protected int totalCount;
 
     CoffeeModel() {
+        viewObservers = new ArrayList<>();
         totalCount = Repo.getSumOfCount();
     }
 

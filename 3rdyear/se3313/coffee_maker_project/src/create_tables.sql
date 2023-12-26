@@ -1,1 +1,0 @@
-CREATE TABLE IF NOT EXISTS brews (count INTEGER,date DATE);

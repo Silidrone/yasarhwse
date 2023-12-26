@@ -14,6 +14,7 @@ public class CoffeeController {
         this.coffeeState = new Empty(this);
         this.currentCoffees = 0;
         coffeeModel.registerViewObserver(coffeeView);
+        coffeeView.init();
     }
 
     public void setBrewBehavior(BrewBehavior brewBehavior) {
@@ -27,8 +28,13 @@ public class CoffeeController {
         coffeeView.setMessage(coffeeState.start());
     }
 
-    public void filled() {
-        coffeeView.setMessage(coffeeState.filled());
+    public void filled(String cupsToFillText) {
+        try {
+            setCurrentCoffees(Integer.parseInt(cupsToFillText));
+            coffeeView.setMessage(coffeeState.filled());
+        } catch (NumberFormatException e) {
+            coffeeView.setMessage("Please enter a valid number of coffees to be filled in!");
+        }
     }
 
     public void reset() {
@@ -41,6 +47,7 @@ public class CoffeeController {
     }
 
     void finishBrew(int count) {
+        coffeeView.setMessage("Finished brewing " + count + " coffees");
         coffeeModel.finishBrew(count);
     }
 

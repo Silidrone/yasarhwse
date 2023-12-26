@@ -15,11 +15,11 @@ public class Idle extends CoffeeState{
 
     @Override
     String filled() {
-        return "You've already filled the machine, brew it first to fill it again!";
+        return "You've already filled the machine!";
     }
 
     @Override
     String reset() {
-        return "You cannot reset the machine right now! The machine hasn't finished brewing the filled coffee!";
+        return "The machine hasn't finished brewing the filled coffee!";
     }
 }
