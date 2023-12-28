@@ -5,12 +5,12 @@ public class Done extends CoffeeState{
 
     @Override
     String start() {
-        return "You cannot start the machine before you reset it!";
+        return "Machine needs to be reset first!";
     }
 
     @Override
     String filled() {
-        return "You cannot fill the machine right now, it needs to be reset and then started first!";
+        return "Machine needs to be reset first!";
     }
 
     @Override

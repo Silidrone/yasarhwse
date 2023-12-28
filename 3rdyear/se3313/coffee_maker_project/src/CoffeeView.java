@@ -19,9 +19,7 @@ public class CoffeeView extends MFrame implements ViewObserver {
 
     @Override
     protected void main() {
-        addButton("FILLED", 40, 200, 130, 50, (ActionEvent e) -> {
-            coffeeController.filled(cupsToFillTextbox.getText());
-        });
+        addButton("FILLED", 40, 200, 130, 50, (ActionEvent e) -> coffeeController.filled(cupsToFillTextbox.getText()));
         addButton("START", 190, 200, 130, 50, (ActionEvent e) -> coffeeController.start());
         addButton("RESET", 190, 260, 130, 50, (ActionEvent e) -> coffeeController.reset());
         addButton("TOTAL CUPS", 340, 200, 130, 50, (ActionEvent e) -> coffeeController.updateTotalCups());
@@ -39,7 +37,7 @@ public class CoffeeView extends MFrame implements ViewObserver {
         doneIndicator = addButton("DONE", 190, 120, 130, 50, (ActionEvent e) -> {
         });
 
-        messageLabel = addLabel("BOO", 40, 300);
+        messageLabel = addLabel("INFO PANEL", 40, 300);
         messageLabel.setBounds(40, 300, 410, 50);
         messageLabel.setForeground(Color.ORANGE);
 
