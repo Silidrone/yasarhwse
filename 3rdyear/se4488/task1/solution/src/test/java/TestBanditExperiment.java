@@ -22,7 +22,7 @@ public class TestBanditExperiment {
     void testSampleAvg_AC_Comparison() throws IOException {
         MultiArmBandit bandit = new GaussianMAB(10);
 
-        ComparisonExperiment experiment = new ComparisonExperiment(bandit, 2000, "SampleAverage_AC_Comparison.jpeg");
+        ComparisonExperiment experiment = new ComparisonExperiment(bandit, 200, "SampleAverage_AC_Comparison.jpeg");
         experiment.addPlayer(new RLBanditPlayer("P1", new SampleAverageVE(0), new EpsilonGreedyAC(0.1)));
         experiment.addPlayer(new RLBanditPlayer("P2", new SampleAverageVE(0), new GreedyAC()));
         experiment.addPlayer(new RLBanditPlayer("P2", new SampleAverageVE(0), new RandomAC()));
