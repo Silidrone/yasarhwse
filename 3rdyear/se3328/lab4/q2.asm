@@ -1,4 +1,4 @@
-%include "linux-ex/asm_io.inc"
+%include "../linux-ex/asm_io.inc"
 
 extern printf
 
