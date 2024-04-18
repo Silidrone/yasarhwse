@@ -1,0 +1,3 @@
+- `nasm -f elf32 e1.asm`
+- `nasm -f elf32 asm_io.asm`
+- `gcc -m32 e1.o asm_io.o -o exe`
