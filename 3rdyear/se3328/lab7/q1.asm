@@ -23,10 +23,9 @@ main:
 	mov ecx, 32
 
 	loop_start:
-		mov  edx, 0
 		sal  ebx, 1
-		adc  edx, 0
-		mov  eax, edx
+        setc al
+		movzx  eax, al
 		call print_int
 		loop loop_start
 		
