@@ -1,4 +1,4 @@
-%include "linux-ex/asm_io.inc"
+%include "../linux-ex/asm_io.inc"
 
 extern printf
 
@@ -12,30 +12,24 @@ main:
 
     mov eax, msg1
     call print_string
-
     call read_char
-    mov [input1], al
+    mov cl, al
 
     mov eax, msg2
     call print_string
-
     call read_int
-    mov [input2], eax
+    mov ebx, eax
 
     mov eax, msg3
     call print_string
-
-    mov al, [input1]
+    mov al, cl
     call print_char
-
     call print_nl
 
     mov eax, msg4
     call print_string
-        
-    mov eax, [input2]
+    mov eax, ebx
     call print_int
-
     call print_nl
 
     leave
@@ -46,6 +40,3 @@ section .data
     msg2        db  "Enter an integer: ", 0
     msg3        db  "The character entered was: ", 0
     msg4        db  "The integer entered was: ", 0
-section .bss
-    input1  resb    1   ; character input
-	input2	resd	1   ; integer input

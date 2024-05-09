@@ -10,50 +10,34 @@ main:
     push ebp
     mov ebp, esp
 
-    mov byte [output1 + 5], 0
-    mov byte [output2 + 5], 0
-
     mov eax, msg1
     call print_string
+    xor ecx, ecx
+    mov ecx, 5
+    mov byte [revstr + 5], 0
+    mov byte [str1 + 5], 0    
+    loop0_start:
+        call read_char
+        mov [revstr + ecx - 1], al
+        sub al, 020h
+        mov ebx, str1
+        sub ebx, ecx
+        add ebx, 5
+        mov [ebx], al
 
-    call read_char
-    mov [output1], al
-    sub byte [output1], 32
-    mov [output2 + 4], al
-
-    call read_char
-    mov [output1 + 1], al
-    sub byte [output1 + 1], 32
-    mov [output2 + 3], al
-
-    call read_char
-    mov [output1 + 2], al
-    sub byte [output1 + 2], 32
-    mov [output2 + 2], al
-
-    call read_char
-    mov [output1 + 3], al
-    sub byte [output1 + 3], 32
-    mov [output2 + 1], al
-
-    call read_char
-    mov [output1 + 4], al
-    sub byte [output1 + 4], 32
-    mov [output2], al
+        loop loop0_start
 
     mov eax, msg2
     call print_string
-
-    mov eax, output2
+    mov eax, revstr
     call print_string
+    
     call print_nl
-
+    
     mov eax, msg3
     call print_string
-
-    mov eax, output1
+    mov eax, str1
     call print_string
-    call print_nl
 
     call print_nl
 
@@ -65,5 +49,5 @@ section .data
     msg2        db  "String #1: ", 0
     msg3        db  "String #2: ", 0
 section .bss
-    output1       resb    6 ; reverse output
-    output2       resb    6 ; capital output
+    revstr resb  6
+    str1 resb    6
