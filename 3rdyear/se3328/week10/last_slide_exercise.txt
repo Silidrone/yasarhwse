@@ -1,0 +1,7 @@
+Ask the user to enter integers until the user enters 0. Then the program stops and prints the minimum of the entered numbers. Below is the example:
+
+Enter an integer: 21
+Enter an integer: 11
+Enter an integer: 22
+Enter an integer: 0
+Min: 11

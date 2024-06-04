@@ -33,6 +33,7 @@ main:
 	jmp  while
 		
     end_while:
+        leave
         ret
 
 section .data
