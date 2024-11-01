@@ -19,9 +19,9 @@ public class TSE_HW implements TagSteeringEngine {
     final double maxAcceleration = 2;
     final double safeDistanceThreshold = Math.hypot(DemoWidth, DemoHeight) * 0.2;
     final double chasingCornerDistanceThreshold = Math.hypot(DemoWidth, DemoHeight) * 0.2;
-    final double cornerWeightMultiplier = Math.hypot(DemoWidth, DemoHeight) * 0.05;
+    final double cornerWeightMultiplier = Math.hypot(DemoWidth, DemoHeight) * 0.1;
     final double cornerAvoidanceDotProduct = -0.8;
-    final double chasingPrioritizationDotProduct = 0.85;
+    final double chasingPrioritizationDotProduct = 0.9;
 
     ArrayList<Point2D> corners = new ArrayList<>() {{
         add(new Point2D(0, 0));
@@ -36,9 +36,6 @@ public class TSE_HW implements TagSteeringEngine {
 
     @Override
     public SteeringBehavior getSteeringBehavior(TagPlayer me, TagArena arena) {
-        System.out.println("safeDistanceThreshold: " + safeDistanceThreshold);
-        System.out.println("chasingCornerDistanceThreshold: " + chasingCornerDistanceThreshold);
-        System.out.println("cornerWeightMultiplier: " + cornerWeightMultiplier);
         List<TagPlayer> otherPlayers = arena.getPlayers().stream()
                 .filter(p -> p != me)
                 .toList();
@@ -67,7 +64,7 @@ public class TSE_HW implements TagSteeringEngine {
                     if (isInView && distance < closestVisibleDistance) {
                         closestVisibleDistance = distance;
                         targetOpponent = opponent;
-                    } else if (distance < closestDistance + (1 - cornerWeight) * cornerWeightMultiplier) {
+                    } else if (distance - cornerWeight * cornerWeightMultiplier < closestDistance) {
                         closestDistance = distance;
                         targetOpponent = opponent;
                     }
