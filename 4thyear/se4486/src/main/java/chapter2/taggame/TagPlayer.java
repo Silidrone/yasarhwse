@@ -14,18 +14,26 @@ public class TagPlayer extends MovingEntity implements TagGameListener {
     private static final float PLAYER_RADIUS = 20;
     private static final int TAGRADIUS = 23;
     private static final Color TAGCOLOR = Color.red;
+    private static final int TAG_PENALTY = 4;
+    private static final int TAG_REWARD = 3;
+
 
     String name;
 
     TagSteeringEngine steeringEngine;
     TagArena arena;
 
-    int tagCount;
+    int tagCount; // The number of times the player is tagged
+    int taggingCount; // The number of times the player tags.
+
+
     boolean isTag;
+
 
      public TagPlayer(String name, StaticInfo staticInfo, Color color) {
         super(staticInfo, new Ball(color,PLAYER_RADIUS));
         this.name = name;
+
     }
 
     public boolean isTag() {
@@ -64,14 +72,14 @@ public class TagPlayer extends MovingEntity implements TagGameListener {
     @Override
     public void update(GameContainer gameContainer, StateBasedGame stateBasedGame, float time) {
         super.update(gameContainer, stateBasedGame,time);
-//        if(name.equals("Can")) {
-//            System.out.println("Can: " + (isTag ? "is tagged!" : "is NOT tagged!"));
-//        }
     }
 
     @Override
-    public void tagChanged(TagPlayer player) {
-        isTag = player==this;
+    public void tagChanged(TagPlayer oldTag, TagPlayer newTag) {
+        isTag = newTag==this;
+
+        if (oldTag == this)
+            taggingCount++;
 
         if (isTag) {
             setSteeringBehavior(SteeringBehavior.NoSteering);
@@ -96,5 +104,9 @@ public class TagPlayer extends MovingEntity implements TagGameListener {
 
         return  ( body.getRadius()+player.body.getRadius() >= distance);
 
+    }
+
+    public int score() {
+        return -TAG_PENALTY*tagCount + TAG_REWARD * taggingCount;
     }
 }

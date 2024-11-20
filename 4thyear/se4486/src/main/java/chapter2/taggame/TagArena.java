@@ -49,7 +49,7 @@ public class TagArena extends MovementPanel {
         state = TagGameState.WarmUp;
         int tag = RandomUtils.randomInt(players.size());
 
-        setTag(players.get(0));
+        setTag(players.get(tag),players.get(tag));
 
     }
 
@@ -66,7 +66,7 @@ public class TagArena extends MovementPanel {
 
 
         for (int p = 0; p < players.size(); p++) {
-            graphics.drawString(players.get(p).name+ " : "+ players.get(p).tagCount, (float) x, (float) y);
+            graphics.drawString(players.get(p).name+ " : "+ players.get(p).score(), (float) x, (float) y);
             y+=20;
         }
 
@@ -98,18 +98,18 @@ public class TagArena extends MovementPanel {
                 continue;
 
             if (tagPlayer.tagging(player)) {
-                setTag(player);
+                setTag(tagPlayer,player);
                 break;
             }
         }
 
     }
 
-    private void setTag(TagPlayer player) {
-        tagPlayer = player;
+    private void setTag(TagPlayer oldTag, TagPlayer newTag) {
+        tagPlayer = newTag;
         state = TagGameState.WarmUp;
         tagChangeTime= System.currentTimeMillis();
-        players.forEach((p)->{p.tagChanged(tagPlayer);});
+        players.forEach((p)->{p.tagChanged(oldTag,tagPlayer);});
         players.forEach((p)->{
             System.out.println(p.name+" : " + p.tagCount);
         });

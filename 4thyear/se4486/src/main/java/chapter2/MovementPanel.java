@@ -29,6 +29,11 @@ public class MovementPanel extends BasicGameState {
     protected List<GameEntity> entities;
 
     protected double width;
+
+    public double getHeight() {
+        return height;
+    }
+
     protected double height;
 
 
@@ -124,4 +129,10 @@ public class MovementPanel extends BasicGameState {
     public void add(GameEntity entity) {
         entities.add(entity);
     }
+
+    public double getWidth() {
+        return width;
+    }
+
+
 }

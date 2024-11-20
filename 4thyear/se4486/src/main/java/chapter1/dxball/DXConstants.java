@@ -9,8 +9,9 @@ public class DXConstants {
     public static Color BackGroundColor = Color.darkGray;
     public static Color BallColor= Color.yellow;
     public static Color RacketColor = Color.white;
-    public static int GameWidth=1600;
-    public static int GameHeight=1200;
+    public static int GameWidth=800;
+
+    public static int GameHeight= 600;
     public static int RacketWidth= 80;
     public static int RacketHeight= 10;
 }
