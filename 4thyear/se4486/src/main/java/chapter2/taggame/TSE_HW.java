@@ -17,11 +17,20 @@ public class TSE_HW implements TagSteeringEngine {
     final int DemoWidth = 1600;
     final int DemoHeight = 1200;
     final double maxAcceleration = 2;
-    final double safeDistanceThreshold = Math.hypot(DemoWidth, DemoHeight) * 0.2;
-    final double chasingCornerDistanceThreshold = Math.hypot(DemoWidth, DemoHeight) * 0.2;
-    final double cornerWeightMultiplier = Math.hypot(DemoWidth, DemoHeight) * 0.1;
-    final double cornerAvoidanceDotProduct = -0.8;
-    final double chasingPrioritizationDotProduct = 0.9;
+
+    // parameters to my algorithm
+    double safeDistanceThreshold = 0.2;
+    double chasingCornerDistanceThreshold = 0.2;
+    double cornerWeightMultiplier = 0.1;
+    double cornerAvoidanceDotProduct = 0.8;
+    double chasingPrioritizationDotProduct = 0.9;
+
+    TSE_HW() {
+        final double bottomLeftTopRightDistance = Math.hypot(DemoWidth, DemoHeight);
+        safeDistanceThreshold *= bottomLeftTopRightDistance;
+        chasingCornerDistanceThreshold *= bottomLeftTopRightDistance;
+        cornerWeightMultiplier *= bottomLeftTopRightDistance;
+    }
 
     ArrayList<Point2D> corners = new ArrayList<>() {{
         add(new Point2D(0, 0));
@@ -83,7 +92,7 @@ public class TSE_HW implements TagSteeringEngine {
                     orderedCorners = orderedCorners.stream().filter(cornerEntry -> {
                         Point2D corner = cornerEntry.getKey();
                         double cornerDot = Vector2D.dot(taggedOpponent.getVelocity().getLinear().normalize(), new Vector2D(opponentPosition, corner).normalize());
-                        return cornerDot > cornerAvoidanceDotProduct;
+                        return cornerDot > -cornerAvoidanceDotProduct;
                     }).toList();
 
                     if (!orderedCorners.isEmpty()) {

@@ -12,8 +12,8 @@ import java.awt.geom.Rectangle2D;
 public class MovingEntity extends BasicGameEntity {
 
 
-    private final static double MAX_SPEED = 16;
-    private final static float TIME_COEFFICIENT = 0.03f;
+    private final static double MAX_SPEED = 5;
+    private final static float TIME_COEFFICIENT = 0.12f;
 
     Velocity velocity = Velocity.NoVelocity();
     Acceleration acceleration = Acceleration.NoAcceleration;

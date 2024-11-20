@@ -26,7 +26,6 @@ public class TagPlayer extends MovingEntity implements TagGameListener {
      public TagPlayer(String name, StaticInfo staticInfo, Color color) {
         super(staticInfo, new Ball(color,PLAYER_RADIUS));
         this.name = name;
-
     }
 
     public boolean isTag() {
