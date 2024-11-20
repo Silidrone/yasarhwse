@@ -23,12 +23,6 @@ public class FollowPath implements SteeringBehavior {
         seek= new Seek(new Vector2D(0,0),5);
     }
 
-    /**
-     * TODO: Implement simple steeering behaviour that follows the path specified by a list of points
-     * @param staticInfo
-     * @param velocity
-     * @return
-     */
     @Override
     public Acceleration getSteering(StaticInfo staticInfo, Velocity velocity) {
 

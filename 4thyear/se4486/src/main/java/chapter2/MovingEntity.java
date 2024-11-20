@@ -76,9 +76,6 @@ public class MovingEntity extends BasicGameEntity {
 
     }
 
-    /**
-     * TODO: Impelement simple bouncing from the wall movement upon boundary collisions
-     */
     private void handleBoundaryCollisions() {
 
         if ( ( staticInfo.getPos().x()+ body.getRadius() >= boundary.getMaxX() && velocity.getLinear().x()>0)

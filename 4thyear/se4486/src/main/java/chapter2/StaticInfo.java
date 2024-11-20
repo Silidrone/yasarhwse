@@ -30,44 +30,26 @@ public class StaticInfo {
         this.orientation = orientation;
     }
 
-    /**
-     * TODO: Implement StaticInfo update function for both Dynamic and Kinematic case
-     *      Note that in the dynamic case dx = vt + 1/2 * a*t*t
-     * @param velocity
-     * @param acceleration
-     * @param time
-     */
-    public void update(Velocity velocity, Acceleration acceleration, float time)
-    {
-        // code  here
-        Vector2D newPos =  pos.plus(velocity.getLinear().times(time));
+    public void update(Velocity velocity, Acceleration acceleration, float time) {
+        Vector2D newPos = pos.plus(velocity.getLinear().times(time));
 
-        if ( acceleration.getAccelerationType() == AccelerationType.Dynamic)
-        {
-            newPos = newPos.plus(acceleration.getLinear().times(0.5*time*time));
+        if (acceleration.getAccelerationType() == AccelerationType.Dynamic) {
+            newPos = newPos.plus(acceleration.getLinear().times(0.5 * time * time));
         }
 
         pos = newPos;
 
-        if (orientationType == OrientationType.VelocityBased)
+        if (orientationType == OrientationType.VelocityBased) {
             adjustOrientation(velocity.getLinear());
-        else {
-
-            orientation = velocity.getAngular()*time + 0.5 *acceleration.getAngular() *time*time;
-
-
+        } else {
+            orientation = velocity.getAngular() * time + 0.5 * acceleration.getAngular() * time * time;
         }
-
-
-
-
-
     }
 
 
     private void adjustOrientation(Vector2D finalLinearVelocity) {
-        if (finalLinearVelocity.norm()>0.001)
-            orientation = Math.atan2(finalLinearVelocity.y(),finalLinearVelocity.x());
+        if (finalLinearVelocity.norm() > 0.001)
+            orientation = Math.atan2(finalLinearVelocity.y(), finalLinearVelocity.x());
     }
 
 }

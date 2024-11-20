@@ -32,11 +32,6 @@ public class Velocity {
         this.angular = angular;
     }
 
-    /**
-     * TODO: Implement velocity update function both Dynamic and Kinematic cases (accelerationtype)
-     * @param acceleration
-     * @param time
-     */
     public void update(Acceleration acceleration, float time)
     {
         // code here..

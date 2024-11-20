@@ -3,6 +3,9 @@ package chapter2.taggame;
 import chapter2.Acceleration;
 import chapter2.AccelerationType;
 import chapter2.SteeringBehavior;
+import chapter2.taggame.TagArena;
+import chapter2.taggame.TagPlayer;
+import chapter2.taggame.TagSteeringEngine;
 import math.geom2d.Point2D;
 import math.geom2d.Vector2D;
 
@@ -10,29 +13,30 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.AbstractMap.SimpleEntry;
+import java.util.stream.Collectors;
 
 // Since I cannot access DemoWidth and DemoHeight from TagGame, please put the same values here otherwise my steering algorithm won't work.
 
 public class TSE_HW implements TagSteeringEngine {
-    final int DemoWidth = 1600;
-    final int DemoHeight = 1200;
+    final int DemoWidth = 800;
+    final int DemoHeight = 600;
     final double maxAcceleration = 2;
 
     // parameters to my algorithm
     double safeDistanceThreshold = 0.2;
     double chasingCornerDistanceThreshold = 0.2;
     double cornerWeightMultiplier = 0.1;
-    double cornerAvoidanceDotProduct = 0.8;
+    double cornerAvoidanceDotProduct = 0.7;
     double chasingPrioritizationDotProduct = 0.9;
 
-    TSE_HW() {
+    public TSE_HW() {
         final double bottomLeftTopRightDistance = Math.hypot(DemoWidth, DemoHeight);
         safeDistanceThreshold *= bottomLeftTopRightDistance;
         chasingCornerDistanceThreshold *= bottomLeftTopRightDistance;
         cornerWeightMultiplier *= bottomLeftTopRightDistance;
     }
 
-    ArrayList<Point2D> corners = new ArrayList<>() {{
+    ArrayList<Point2D> corners = new ArrayList<Point2D>() {{
         add(new Point2D(0, 0));
         add(new Point2D(0, DemoHeight));
         add(new Point2D(DemoWidth, 0));
@@ -47,7 +51,8 @@ public class TSE_HW implements TagSteeringEngine {
     public SteeringBehavior getSteeringBehavior(TagPlayer me, TagArena arena) {
         List<TagPlayer> otherPlayers = arena.getPlayers().stream()
                 .filter(p -> p != me)
-                .toList();
+                .collect(Collectors.toList());
+
         return (staticInfo, velocity) -> {
             Vector2D linearAcceleration = new Vector2D(0, 0);
             boolean isTagged = me.isTag();
@@ -87,13 +92,13 @@ public class TSE_HW implements TagSteeringEngine {
 
                 if (taggedOpponent != null) {
                     Point2D opponentPosition = convertVectorToPoint2D(taggedOpponent.getStaticInfo().getPos());
-                    var orderedCorners = orderCornersByDistance(taggedOpponent);
+                    List<SimpleEntry<Point2D, Double>> orderedCorners = orderCornersByDistance(taggedOpponent);
 
                     orderedCorners = orderedCorners.stream().filter(cornerEntry -> {
                         Point2D corner = cornerEntry.getKey();
-                        double cornerDot = Vector2D.dot(taggedOpponent.getVelocity().getLinear().normalize(), new Vector2D(opponentPosition, corner).normalize());
+                        double cornerDot = Vector2D.dot(taggedOpponent.getStaticInfo().getPos().normalize(), new Vector2D(opponentPosition, corner).normalize());
                         return cornerDot > -cornerAvoidanceDotProduct;
-                    }).toList();
+                    }).collect(Collectors.toList());
 
                     if (!orderedCorners.isEmpty()) {
                         double distanceToOpponent = myPosition.distance(opponentPosition);

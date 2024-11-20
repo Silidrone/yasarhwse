@@ -16,12 +16,6 @@ public class Seek implements SteeringBehavior {
         this.maxAcceleration = maxAcceleration;
     }
 
-    /**
-     * TODO: Implement Dynamic Seek method as described
-     * @param staticInfo
-     * @param velocity
-     * @return
-     */
     @Override
     public Acceleration getSteering(StaticInfo staticInfo, Velocity velocity) {
         Vector2D acceleration =  target.minus(staticInfo.getPos());

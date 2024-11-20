@@ -57,13 +57,10 @@ public class TagGame extends StateBasedGame {
         TagPlayer tp3 = new TagPlayer("Murat", new StaticInfo(new Vector2D(190,290),0.0, OrientationType.VelocityBased), Color.yellow);
         TagPlayer tp4 = new TagPlayer("Sevgi", new StaticInfo(new Vector2D(390,290),0.0, OrientationType.VelocityBased), Color.magenta);
 
-       /*todo STEERING BEHAVIORS*/
-        tp1.setSteeringEngine(new WanderEngine());
-        tp2.setSteeringEngine(new WanderEngine());
-        tp3.setSteeringEngine(new WanderEngine());
-        tp4.setSteeringEngine(new WanderEngine());
-        //tp1.setSteeringEngine((p,a)-> new Wander());
-        //tp2.setSteeringEngine((p,a)-> new Wander());
+        tp1.setSteeringEngine(new TSE_HW());
+        tp2.setSteeringEngine(new TSE_HW());
+        tp3.setSteeringEngine(new TSE_HW());
+        tp4.setSteeringEngine(new TSE_HW());
         game.addPlayer(tp1);
         game.addPlayer(tp2);
         game.addPlayer(tp3);

@@ -17,12 +17,6 @@ public class Wander implements SteeringBehavior {
 
     Seek seek= new Seek(new Vector2D(),5);
 
-    /**
-     * TODO: Implement a Wandering algorithm
-     * @param staticInfo
-     * @param velocity
-     * @return
-     */
     @Override
     public Acceleration getSteering(StaticInfo staticInfo, Velocity velocity) {
 

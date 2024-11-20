@@ -24,12 +24,6 @@ public class Arrive  implements SteeringBehavior {
         this.maxAcceleration = maxAcceleration;
     }
 
-    /**
-     * TODO: Analyze the code below. Write a test for this behavior compare with seek
-     * @param staticInfo
-     * @param velocity
-     * @return
-     */
     @Override
     public Acceleration getSteering(StaticInfo staticInfo, Velocity velocity) {
 
