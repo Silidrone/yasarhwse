@@ -5,17 +5,18 @@ import chapter2.OrientationType;
 import chapter2.StaticInfo;
 import chapter2.SteeringBehavior;
 import chapter2.steering.Wander;
-import chapter2.taggame.hw.muhammed.TSE_HW_Muhammed;
 import math.geom2d.Vector2D;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.util.Bootstrap;
+import chapter2.taggame.hw.gurur.TSE_HW_Gurur;
 
 
 class WanderEngine implements TagSteeringEngine
 {
+
     @Override
     public SteeringBehavior getSteeringBehavior(TagPlayer player, TagArena arena) {
         return new Wander();
@@ -57,10 +58,13 @@ public class TagGame extends StateBasedGame {
         TagPlayer tp3 = new TagPlayer("Murat", new StaticInfo(new Vector2D(190,290),0.0, OrientationType.VelocityBased), Color.yellow);
         TagPlayer tp4 = new TagPlayer("Sevgi", new StaticInfo(new Vector2D(390,290),0.0, OrientationType.VelocityBased), Color.magenta);
 
-        tp1.setSteeringEngine(new TSE_HW_Muhammed());
-        tp2.setSteeringEngine(new TSE_HW_Muhammed());
-        tp3.setSteeringEngine(new TSE_HW_Muhammed());
-        tp4.setSteeringEngine(new TSE_HW_Muhammed());
+       /*todo STEERING BEHAVIORS*/
+        tp1.setSteeringEngine(new TSE_HW_Gurur());
+        tp2.setSteeringEngine(new TSE_HW_Gurur());
+        tp3.setSteeringEngine(new TSE_HW_Gurur());
+        tp4.setSteeringEngine(new TSE_HW_Gurur());
+        //tp1.setSteeringEngine((p,a)-> new Wander());
+        //tp2.setSteeringEngine((p,a)-> new Wander());
         game.addPlayer(tp1);
         game.addPlayer(tp2);
         game.addPlayer(tp3);

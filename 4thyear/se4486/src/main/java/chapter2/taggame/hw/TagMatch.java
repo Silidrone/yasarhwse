@@ -24,20 +24,20 @@ public class TagMatch {
         TagPlayer tp3 = new TagPlayer("Efe", new StaticInfo(new Vector2D(190,290),0.0, OrientationType.VelocityBased), Color.white);
         TagPlayer tp4 = new TagPlayer("Ceren", new StaticInfo(new Vector2D(390,290),0.0, OrientationType.VelocityBased), Color.magenta);
         TagPlayer tp5 = new TagPlayer("Pelin", new StaticInfo(new Vector2D(590,690),0.0, OrientationType.VelocityBased), Color.orange);
-        TagPlayer tp6 = new TagPlayer("Muhamed", new StaticInfo(new Vector2D(490,190),0.0, OrientationType.VelocityBased), Color.yellow);
 
+        /*todo STEERING BEHAVIORS*/
         tp1.setSteeringEngine(new TSE_HW_Gurur());
         tp2.setSteeringEngine(new TSE_HW_Sinan());
         tp3.setSteeringEngine(new EfeEngine());
         tp4.setSteeringEngine(new TSE_HW_ceren());
         tp5.setSteeringEngine(new PelinTagGameEngine());
-        tp6.setSteeringEngine(new TSE_HW_Muhammed());
+        //tp1.setSteeringEngine((p,a)-> new Wander());
+        //tp2.setSteeringEngine((p,a)-> new Wander());
         game.addPlayer(tp1);
         game.addPlayer(tp2);
         game.addPlayer(tp3);
         game.addPlayer(tp4);
         game.addPlayer(tp5);
-        game.addPlayer(tp6);
 
         Bootstrap.runAsApplication(game,TagGame.DemoWidth,TagGame.DemoHeight,false);
     }

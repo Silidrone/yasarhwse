@@ -14,6 +14,12 @@ public class KinematicSeek implements SteeringBehavior {
         this.maxSpeed = maxSpeed;
     }
 
+    /**
+     * TODO: Implement simple kinematic seek as described in your book
+     * @param staticInfo
+     * @param velocity
+     * @return
+     */
     @Override
     public Acceleration getSteering(StaticInfo staticInfo, Velocity velocity) {
 
