@@ -23,4 +23,8 @@ public abstract class BasicRenderable implements Renderable {
     }
 
     protected abstract void _render(StaticInfo staticInfo, Graphics graphics);
+
+    public Color getColor() {
+        return color;
+    }
 }

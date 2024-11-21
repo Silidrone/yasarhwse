@@ -48,8 +48,8 @@ public class StaticInfo {
 
 
     private void adjustOrientation(Vector2D finalLinearVelocity) {
-        if (finalLinearVelocity.norm() > 0.001)
+        if (finalLinearVelocity.norm() > 0.001) {
             orientation = Math.atan2(finalLinearVelocity.y(), finalLinearVelocity.x());
+        }
     }
-
 }

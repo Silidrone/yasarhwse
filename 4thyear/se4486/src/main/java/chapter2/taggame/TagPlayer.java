@@ -109,4 +109,10 @@ public class TagPlayer extends MovingEntity implements TagGameListener {
     public int score() {
         return -TAG_PENALTY*tagCount + TAG_REWARD * taggingCount;
     }
+
+    public Color getColor()
+    {
+        Ball ball = (Ball) getBody();
+        return ball.getColor();
+    }
 }

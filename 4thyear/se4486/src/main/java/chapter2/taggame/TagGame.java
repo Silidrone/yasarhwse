@@ -5,6 +5,7 @@ import chapter2.OrientationType;
 import chapter2.StaticInfo;
 import chapter2.SteeringBehavior;
 import chapter2.steering.Wander;
+import chapter2.taggame.hw.muhammed.TSE_HW_Muhammed;
 import math.geom2d.Vector2D;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -15,7 +16,6 @@ import org.newdawn.slick.util.Bootstrap;
 
 class WanderEngine implements TagSteeringEngine
 {
-
     @Override
     public SteeringBehavior getSteeringBehavior(TagPlayer player, TagArena arena) {
         return new Wander();
@@ -23,8 +23,8 @@ class WanderEngine implements TagSteeringEngine
 }
 
 public class TagGame extends StateBasedGame {
-    private static final int DemoWidth = 800;
-    private static final int DemoHeight = 600;
+    public static final int DemoWidth = 1000;
+    public static final int DemoHeight = 800;
     private static final String TAGGAME = "Tag Game";
     private final int tagArenaIndex=0;
 
@@ -43,7 +43,7 @@ public class TagGame extends StateBasedGame {
         return   (TagArena) getState(tagArenaIndex);
     }
 
-    private void addPlayer(TagPlayer player) {
+    public void addPlayer(TagPlayer player) {
         TagArena arena = (TagArena) getState(tagArenaIndex);
 
         arena.addPlayer(player);
@@ -57,10 +57,10 @@ public class TagGame extends StateBasedGame {
         TagPlayer tp3 = new TagPlayer("Murat", new StaticInfo(new Vector2D(190,290),0.0, OrientationType.VelocityBased), Color.yellow);
         TagPlayer tp4 = new TagPlayer("Sevgi", new StaticInfo(new Vector2D(390,290),0.0, OrientationType.VelocityBased), Color.magenta);
 
-        tp1.setSteeringEngine(new TSE_HW());
-        tp2.setSteeringEngine(new TSE_HW());
-        tp3.setSteeringEngine(new TSE_HW());
-        tp4.setSteeringEngine(new TSE_HW());
+        tp1.setSteeringEngine(new TSE_HW_Muhammed());
+        tp2.setSteeringEngine(new TSE_HW_Muhammed());
+        tp3.setSteeringEngine(new TSE_HW_Muhammed());
+        tp4.setSteeringEngine(new TSE_HW_Muhammed());
         game.addPlayer(tp1);
         game.addPlayer(tp2);
         game.addPlayer(tp3);

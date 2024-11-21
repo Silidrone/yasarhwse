@@ -66,6 +66,7 @@ public class TagArena extends MovementPanel {
 
 
         for (int p = 0; p < players.size(); p++) {
+            graphics.setColor(players.get(p).getColor());
             graphics.drawString(players.get(p).name+ " : "+ players.get(p).score(), (float) x, (float) y);
             y+=20;
         }
