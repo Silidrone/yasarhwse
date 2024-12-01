@@ -259,7 +259,7 @@ public class PolygonWorld implements WorldRepresentation<Point2D>, GameEntity {
         graphics.setColor(color);
         graphics.fill(new Polygon(vertices));
 
-        //p.vertices().forEach((v)->renderPoint(graphics,v));
+        p.vertices().forEach((v)->renderPoint(graphics,v));
 
     }
 
@@ -280,23 +280,40 @@ public class PolygonWorld implements WorldRepresentation<Point2D>, GameEntity {
         int height = 800;
 
         List<Polygon2D> polygon2DS = Arrays.asList(
-                new SimplePolygon2D(new Point2D(100,100), new Point2D(100,50), new Point2D(150,50)),
-                new SimplePolygon2D(new Point2D(300,300), new Point2D(450,300), new Point2D(450,450), new Point2D(300,450)),
-                new SimplePolygon2D(new Point2D(600,100), new Point2D(500,250), new Point2D(550,350), new Point2D(650,300), new Point2D(750,150)));
+                new SimplePolygon2D(new Point2D(100, 100), new Point2D(150, 50), new Point2D(200, 100)),
+                new SimplePolygon2D(new Point2D(500, 500), new Point2D(550, 450), new Point2D(600, 500)),
 
+                new SimplePolygon2D(new Point2D(300, 300), new Point2D(450, 300), new Point2D(450, 400), new Point2D(300, 400)),
+                new SimplePolygon2D(new Point2D(700, 100), new Point2D(800, 100), new Point2D(800, 200), new Point2D(700, 200)),
 
-        List<Point2D> point2DS = Arrays.asList( new Point2D(400,10),
-                new Point2D(20,400),
-                new Point2D(10,10),
-                new Point2D(750,350));
+                new SimplePolygon2D(new Point2D(100, 500), new Point2D(200, 550), new Point2D(150, 600), new Point2D(80, 580)),
+                new SimplePolygon2D(new Point2D(600, 100), new Point2D(700, 150), new Point2D(750, 200), new Point2D(650, 250), new Point2D(550, 150)),
+
+                new SimplePolygon2D(new Point2D(400, 600), new Point2D(450, 650), new Point2D(500, 620), new Point2D(520, 700), new Point2D(380, 680))
+        );
+
+        List<Point2D> point2DS = Arrays.asList(
+                new Point2D(50, 50),
+                new Point2D(400, 10),
+                new Point2D(250, 250),
+                new Point2D(350, 550),
+                new Point2D(500, 300),
+                new Point2D(750, 350),
+                new Point2D(50, 700),
+                new Point2D(800, 600),
+
+                new Point2D(310, 310),
+                new Point2D(710, 150),
+                new Point2D(450, 620)
+        );
 
         Graph2D vg = new VisibilityGraphHW(point2DS,polygon2DS);
 
-        PathfindingAlgorithm<Point2D> dijkstra =  new Dijkstra<>();
-        PathfindingAlgorithm<Point2D> astarhw =  new AStarHW<>((g,n,t)->0);
+        PathfindingAlgorithm<Point2D> dijkstra = new Dijkstra<>();
+        PathfindingAlgorithm<Point2D> astarhw = new AStarHW<>(((g, n, t) -> n.distance(t)));
 
         PolygonWorld pw = new PolygonWorld(vg,width- 2*SimplePanel.FRAME_WIDTH,height-2*SimplePanel.FRAME_WIDTH);
-        PathFindingPanel<Point2D> pathFindingPanel = new PathFindingPanel<>(pw, Arrays.asList(dijkstra));
+        PathFindingPanel<Point2D> pathFindingPanel = new PathFindingPanel<>(pw, Arrays.asList(astarhw));
 
         SimpleGame demo = new SimpleGame("Path Finding Demo", pathFindingPanel);
         Bootstrap.runAsApplication(demo,width,height,false);

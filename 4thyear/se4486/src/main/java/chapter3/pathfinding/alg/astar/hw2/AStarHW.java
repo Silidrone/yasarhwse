@@ -3,35 +3,31 @@ package chapter3.pathfinding.alg.astar.hw2;
 import chapter3.pathfinding.*;
 import chapter3.pathfinding.alg.PathfindingAlgorithm;
 import chapter3.pathfinding.alg.PathfindingList;
-import chapter3.pathfinding.alg.PathfindingNode;
 import chapter3.pathfinding.alg.astar.AStarHeuristic;
 import chapter3.pathfinding.alg.astar.AStarNode;
-import chapter3.pathfinding.alg.astar.ManhattanDistanceHeuristic;
-import chapter3.pathfinding.grid.GridGraph;
-import chapter3.pathfinding.grid.GridNode;
 
 import java.util.*;
 
 public class AStarHW<T> implements PathfindingAlgorithm<T> {
-
     PathfindingList<T> openList;
     HashMap<T, AStarNode<T>> closedList;
-    AStarHeuristic<T> heuristic;
     private T start;
-    private T end;
+    private T target;
     private T current;
-    private Graph<T> graph;
+    AStarHeuristic<T> heuristic;
 
+    private Graph<T> graph;
     private Path<T> path;
 
     public AStarHW(AStarHeuristic<T> heuristic) {
         openList = new PathfindingList<>();
         closedList = new HashMap<>();
-        this.heuristic= heuristic;
+        this.heuristic = heuristic;
     }
 
     /**
      * TODO: Implement A* algorithm.
+     *
      * @param graph
      * @param start
      * @param end
@@ -39,15 +35,48 @@ public class AStarHW<T> implements PathfindingAlgorithm<T> {
      */
     @Override
     public Path<T> findPath(Graph<T> graph, T start, T end) {
+        if (start.equals(end))
+            return new ListPath<>(new ArrayList<>(), 0.0);
 
-        // your code here..
+        init(graph, start, end);
 
-        return path==null ? new ListPath<T>(Collections.emptyList(),0):path;
+        while (!openList.isEmpty() && path == null) {
+            AStarNode<T> currentAStarNode = (AStarNode<T>) openList.removeMin();
+            processNode(currentAStarNode);
+        }
+
+        return path != null ? path : new ListPath<T>(Collections.emptyList(), 0);
     }
 
 
+    private void processNode(AStarNode<T> aStarNode) {
+        T currentNode = aStarNode.getNode();
+        if (currentNode.equals(target)) {
+            System.out.println("A* Inserted: " + openList.getInsertCount());
+            path = buildPath(aStarNode, start, closedList);
+            return;
+        }
 
+        List<Connection<T>> neighbors = graph.connectionsOf(currentNode);
 
+        for (Connection<T> connection : neighbors) {
+            T neighbor = connection.to();
+
+            if (closedList.containsKey(neighbor))
+                continue;
+
+            var g_cost = aStarNode.getCostSoFar() + connection.cost();
+            var f_cost = g_cost + heuristic.estimate(graph, neighbor, target);
+            AStarNode<T> newRecord = new AStarNode<>(neighbor, g_cost, f_cost, connection);
+
+            if (openList.contains(neighbor)) {
+                if (openList.get(neighbor).getEstimatedCost() > newRecord.getEstimatedCost())
+                    openList.update(newRecord);
+            } else openList.insert(newRecord);
+        }
+
+        closedList.put(aStarNode.getNode(), aStarNode);
+    }
 
 
     @Override
@@ -56,44 +85,29 @@ public class AStarHW<T> implements PathfindingAlgorithm<T> {
     }
 
 
-
-
-    private void init(Graph<T> graph,T start, T end) {
+    private void init(Graph<T> graph, T start, T target) {
 
         this.start = start;
-        this.end = end;
-        this.graph= graph;
-        path= null;
+        this.target = target;
+        this.graph = graph;
+        path = null;
         openList.init();
         closedList.clear();
-        PathfindingNode<T> dNode = new AStarNode<>(start,0,heuristic.estimate(graph,start,end),null);
 
-        openList.insert(dNode);
+        openList.insert(new AStarNode<>(start, 0, heuristic.estimate(graph, start, target), null));
     }
 
-    private Path<T> buildPath(AStarNode<T> currentDNode, T start, HashMap<T,AStarNode<T>> closedList) {
-
+    private Path<T> buildPath(AStarNode<T> currentAStarNode, T start, HashMap<T, AStarNode<T>> closedList) {
         List<Connection<T>> path = new ArrayList<>();
-        double weight =0;
+        double weight = 0;
 
-        while (!currentDNode.getNode().equals(start))
-        {
-            path.add(currentDNode.getConnection());
-            weight += currentDNode.getConnection().cost();
-            currentDNode = closedList.get(currentDNode.getConnection().from());
-
-
+        while (!currentAStarNode.getNode().equals(start)) {
+            path.add(currentAStarNode.getConnection());
+            weight += currentAStarNode.getConnection().cost();
+            currentAStarNode = closedList.get(currentAStarNode.getConnection().from());
         }
 
         Collections.reverse(path);
-
-
-
-
         return new ListPath<>(path, weight);
     }
-
-
-
-
 }
