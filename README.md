@@ -1,2 +1,2 @@
 # yasarhwse
-All my homework solutions throughout my education in Yasar's Software Engineering department.
+Comprehensive solutions to core programming assignments during Software Engineering studies at Yasar University.
